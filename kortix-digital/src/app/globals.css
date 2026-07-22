@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Alro";
+  src: url("/ttf/alro-alro-regular-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alro";
+  src: url("/ttf/alro-alro-bold-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark light;
+  --background: #050505;
+  --foreground: #ededed;
+  --kortix-green: #23F855;
+  --kortix-green-light: #23F855;
+  --kortix-green-dark: #17a348;
+  --kortix-dark: #0a0a0a;
+  --kortix-darker: #050505;
+  --kortix-card: #111111;
+  --kortix-card-hover: #161616;
+  --kortix-border: #1a1a1a;
+  --kortix-muted: #888888;
+  --kortix-text-secondary: #a0a0a0;
+  --kortix-discord: #5865F2;
+  --kortix-whatsapp: #25D366;
+}
+
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #111111;
+  --kortix-dark: #f5f5f5;
+  --kortix-darker: #ffffff;
+  --kortix-card: #f0f0f0;
+  --kortix-card-hover: #e8e8e8;
+  --kortix-border: #e0e0e0;
+  --kortix-muted: #999999;
+  --kortix-text-secondary: #666666;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-kortix-green: var(--kortix-green);
+  --color-kortix-green-light: var(--kortix-green-light);
+  --color-kortix-green-dark: var(--kortix-green-dark);
+  --color-kortix-dark: var(--kortix-dark);
+  --color-kortix-darker: var(--kortix-darker);
+  --color-kortix-card: var(--kortix-card);
+  --color-kortix-card-hover: var(--kortix-card-hover);
+  --color-kortix-border: var(--kortix-border);
+  --color-kortix-muted: var(--kortix-muted);
+  --color-kortix-text-secondary: var(--kortix-text-secondary);
+  --color-kortix-discord: var(--kortix-discord);
+  --color-kortix-whatsapp: var(--kortix-whatsapp);
+  --font-sans: "Alro", system-ui, -apple-system, sans-serif;
+  --font-mono: "Alro", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: "Alro", system-ui, -apple-system, sans-serif;
+}
+
+body, section, div, header, footer, nav, main, aside, article, a, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, li, ul, ol {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grain-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+.green-glow {
+  box-shadow: 0 0 60px rgba(29, 185, 84, 0.15), 0 0 120px rgba(29, 185, 84, 0.05);
+}
+
+.green-glow-text {
+  text-shadow: 0 0 40px rgba(29, 185, 84, 0.3);
+}
+
+.card-glass {
+  background: linear-gradient(135deg, rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.4));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--kortix-green), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes wave-drift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.animate-wave-drift {
+  animation: wave-drift 20s linear infinite;
+}
+
+.animate-pulse-green {
+  animation: pulse-green 3s ease-in-out infinite;
+}
+
+::selection {
+  background: rgba(29, 185, 84, 0.3);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--kortix-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--kortix-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kortix-muted);
+}

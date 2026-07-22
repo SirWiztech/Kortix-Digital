@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" fill="none">
+  <!-- Geometric K mark -->
+  <rect x="0" y="0" width="52" height="52" rx="8" fill="#1DB954"/>
+  <path d="M14 14 L14 38 L24 38 L24 26 L30 38 L40 38 L30 24 L40 14 L28 14 L22 22 L22 14 Z" fill="#0a0a0a"/>
+  <!-- Wordmark -->
+  <text x="64" y="36" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="28" fill="#ffffff" letter-spacing="-1">KORTIX</text>
+  <text x="196" y="36" font-family="system-ui, -apple-system, sans-serif" font-weight="300" font-size="28" fill="#1DB954" letter-spacing="-0.5">DIGITAL</text>
+</svg>
