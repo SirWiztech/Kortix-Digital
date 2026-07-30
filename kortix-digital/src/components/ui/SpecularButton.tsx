@@ -299,7 +299,6 @@ export default function SpecularButton({
         className={`relative z-10 cursor-pointer font-medium transition-all duration-200 inline-flex items-center justify-center gap-2 ${disabled ? "opacity-50 pointer-events-none" : ""} ${SIZES[size] || SIZES.md}`}
         style={{
           color: textColor,
-          background: baseColor,
           backdropFilter: blur ? `blur(${blur}px)` : "none",
           borderRadius: radius,
         }}
