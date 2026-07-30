@@ -297,7 +297,7 @@ export default function SpecularButton({
         {...(linkProps as any)}
         onClick={onClick}
         disabled={disabled}
-        className={`relative z-10 cursor-pointer font-medium transition-all duration-200 inline-flex items-center justify-center gap-2 ${disabled ? "opacity-50 pointer-events-none" : ""} ${SIZES[size] || SIZES.md}`}
+        className={`relative z-10 cursor-pointer font-medium transition-all duration-200 w-full inline-flex items-center justify-center gap-2 ${disabled ? "opacity-50 pointer-events-none" : ""} ${SIZES[size] || SIZES.md}`}
         style={{
           color: textColor,
           backgroundColor: baseColor,
