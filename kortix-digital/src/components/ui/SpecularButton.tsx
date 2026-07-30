@@ -174,8 +174,8 @@ export default function SpecularButton({
       if (cancelled) return;
 
       const gl = renderer.gl;
-      const halfW = (rect.width + PAD * 2) / 2;
-      const halfH = (rect.height + PAD * 2) / 2;
+      const halfW = ((rect.width + PAD * 2) / 2) * dpr;
+      const halfH = ((rect.height + PAD * 2) / 2) * dpr;
 
       const uniforms = {
         uCenter: { value: [halfW, halfH] },
@@ -249,8 +249,8 @@ export default function SpecularButton({
         cvs.height = (r.height + PAD * 2) * newDpr;
         cvs.style.width = `${r.width + PAD * 2}px`;
         cvs.style.height = `${r.height + PAD * 2}px`;
-        const newHalfW = (r.width + PAD * 2) / 2;
-        const newHalfH = (r.height + PAD * 2) / 2;
+        const newHalfW = ((r.width + PAD * 2) / 2) * newDpr;
+        const newHalfH = ((r.height + PAD * 2) / 2) * newDpr;
         uniforms.uCenter.value = [newHalfW, newHalfH];
         uniforms.uHalfSize.value = [newHalfW - PAD, newHalfH - PAD];
         renderer.setSize(cvs.width, cvs.height);

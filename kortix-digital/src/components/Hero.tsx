@@ -157,7 +157,7 @@ export default function Hero() {
   });
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-28 pb-10">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
       <div className="absolute inset-0 bg-gradient-to-b from-kortix-darker/60 via-kortix-darker/40 to-kortix-darker/80 pointer-events-none" />
@@ -219,7 +219,7 @@ export default function Hero() {
           variants={fadeUp(3)}
           initial="hidden"
           animate="visible"
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10"
+          className="flex md:mb-0 mb-20 flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10"
         >
           <SpecularButton
             as="a"
