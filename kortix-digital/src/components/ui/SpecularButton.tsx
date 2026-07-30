@@ -285,7 +285,7 @@ export default function SpecularButton({
     <div
       ref={containerRef}
       className={`relative inline-flex items-center justify-center overflow-hidden ${className}`}
-      style={{ borderRadius: radius }}
+      style={{ backgroundColor: baseColor, borderRadius: radius }}
     >
       <canvas
         ref={canvasRef}
@@ -299,7 +299,7 @@ export default function SpecularButton({
         className={`relative z-10 cursor-pointer font-medium transition-all duration-200 inline-flex items-center justify-center gap-2 ${disabled ? "opacity-50 pointer-events-none" : ""} ${SIZES[size] || SIZES.md}`}
         style={{
           color: textColor,
-          background: tint ? `rgba(${parseInt(tint.slice(1, 3), 16)}, ${parseInt(tint.slice(3, 5), 16)}, ${parseInt(tint.slice(5, 7), 16)}, ${tintOpacity})` : "transparent",
+          background: baseColor,
           backdropFilter: blur ? `blur(${blur}px)` : "none",
           borderRadius: radius,
         }}
