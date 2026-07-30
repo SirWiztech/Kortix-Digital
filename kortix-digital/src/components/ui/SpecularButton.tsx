@@ -180,7 +180,7 @@ export default function SpecularButton({
       const uniforms = {
         uCenter: { value: [halfW, halfH] },
         uHalfSize: { value: [halfW - PAD, halfH - PAD] },
-        uRadius: { value: radius },
+        uRadius: { value: radius * dpr },
         uAngle: { value: 0 },
         uPx: { value: 1 },
         uLineColor: { value: hexToRGB(lineColor) },
@@ -253,6 +253,7 @@ export default function SpecularButton({
         const newHalfH = ((r.height + PAD * 2) / 2) * newDpr;
         uniforms.uCenter.value = [newHalfW, newHalfH];
         uniforms.uHalfSize.value = [newHalfW - PAD, newHalfH - PAD];
+        uniforms.uRadius.value = radius * newDpr;
         renderer.setSize(cvs.width, cvs.height);
       }
 
@@ -285,7 +286,7 @@ export default function SpecularButton({
     <div
       ref={containerRef}
       className={`relative inline-flex items-center justify-center overflow-hidden ${className}`}
-      style={{ backgroundColor: baseColor, borderRadius: radius }}
+      style={{ backgroundColor: baseColor, borderRadius: radius, willChange: "transform" }}
     >
       <canvas
         ref={canvasRef}
