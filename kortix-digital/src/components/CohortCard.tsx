@@ -45,9 +45,12 @@ export default function CohortCard({
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-baseline gap-2 mb-5">
           <span className="text-2xl font-bold text-kortix-green">
             {cohort.price}
+          </span>
+          <span className="text-base font-medium text-kortix-muted line-through">
+            {cohort.originalPrice}
           </span>
         </div>
 

@@ -38,6 +38,7 @@ export default async function CohortDetailPage({
 
   const Icon = getIcon(cohort.iconName);
   const isPlaceholder = cohort.whatsappLink === "#";
+  let topicIndex = 0;
 
   return (
     <>
@@ -70,9 +71,12 @@ export default async function CohortDetailPage({
             </p>
 
             <div className="flex flex-wrap items-center gap-6 mb-8">
-              <div className="flex items-center gap-2 text-foreground">
+              <div className="flex items-baseline gap-3 text-foreground">
                 <span className="text-3xl font-bold text-kortix-green">
                   {cohort.price}
+                </span>
+                <span className="text-xl font-medium text-kortix-muted line-through">
+                  {cohort.originalPrice}
                 </span>
               </div>
               <div className="flex items-center gap-2 text-kortix-text-secondary">
@@ -106,19 +110,31 @@ export default async function CohortDetailPage({
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <h2 className="text-2xl font-bold text-foreground mb-8">Curriculum</h2>
-            <div className="space-y-3">
-              {cohort.curriculum.map((item, i) => (
-                <ElectricBorder key={i} borderRadius={12}>
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-kortix-card"
-                >
-                  <span className="w-8 h-8 rounded-lg bg-kortix-green/10 flex items-center justify-center text-sm font-bold text-kortix-green shrink-0">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm text-kortix-text-secondary">
-                    {item}
-                  </span>
+            <div className="space-y-10">
+              {cohort.curriculum.map((module, mi) => (
+                <div key={mi}>
+                  <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-3">
+                    <span className="w-1.5 h-5 rounded-full bg-kortix-green shrink-0" />
+                    {module.title}
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {module.topics.map((topic, ti) => {
+                      const num = topicIndex++;
+                      return (
+                        <ElectricBorder key={ti} borderRadius={12}>
+                          <div className="flex items-center gap-4 p-4 rounded-xl bg-kortix-card">
+                            <span className="w-8 h-8 rounded-lg bg-kortix-green/10 flex items-center justify-center text-sm font-bold text-kortix-green shrink-0">
+                              {String(num + 1).padStart(2, "0")}
+                            </span>
+                            <span className="text-sm text-kortix-text-secondary">
+                              {topic}
+                            </span>
+                          </div>
+                        </ElectricBorder>
+                      );
+                    })}
+                  </div>
                 </div>
-                </ElectricBorder>
               ))}
             </div>
           </ScrollReveal>

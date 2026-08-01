@@ -9,7 +9,7 @@ export default function FloatingCTA() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.5 }}
-      className="fixed bottom-6 right-6 z-50 flex flex-col gap-3"
+      className="flex flex-col gap-3"
     >
       <a
         href="https://wa.me/2347071617216"

@@ -2,6 +2,10 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import CohortCard from "@/components/CohortCard";
+import Testimonials from "@/components/Testimonials";
+import VideoShowcase from "@/components/VideoShowcase";
+import CommunitySpotlight from "@/components/CommunitySpotlight";
+import FAQ from "@/components/FAQ";
 import ScrollReveal from "@/components/ScrollReveal";
 import BrandPatternSection from "@/components/BrandPatternSection";
 import SpecularLink from "@/components/SpecularLink";
@@ -81,6 +85,14 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </BrandPatternSection>
+
+      <Testimonials />
+
+      <VideoShowcase />
+
+      <CommunitySpotlight />
+
+      <FAQ />
 
       <section className="relative py-24 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-kortix-green/10 via-kortix-green/5 to-kortix-green/10" />

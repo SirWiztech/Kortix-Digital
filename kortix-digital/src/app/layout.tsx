@@ -1,11 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
+import FloatingChatbot from "@/components/FloatingChatbot";
 import ThemeProvider from "@/components/ThemeProvider";
 import TargetCursor from "@/components/TargetCursor";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  interactiveWidget: "resizes-content",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kortixdigital.com"),
@@ -130,7 +135,10 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1 relative z-10 bg-background/70 backdrop-blur-[2px]">{children}</main>
           <Footer />
-          <FloatingCTA />
+          <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+            <FloatingChatbot />
+            <FloatingCTA />
+          </div>
           <CookieConsent />
         </ThemeProvider>
       </body>

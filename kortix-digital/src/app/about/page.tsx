@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 import BrandPatternSection from "@/components/BrandPatternSection";
 import ElectricBorder from "@/components/ui/ElectricBorder";
@@ -68,32 +69,49 @@ export default function AboutPage() {
       </section>
 
       <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="prose prose-invert max-w-none">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+              <ElectricBorder borderRadius={16} className="h-full">
+                <div className="h-full p-8 rounded-2xl bg-kortix-card">
+                  <h2 className="text-2xl font-bold text-foreground mb-4">Our Story</h2>
+                  <p className="text-kortix-text-secondary leading-relaxed mb-4">
+                    Kortix Digital was founded with a simple observation: the digital
+                    economy is booming, but there&apos;s a massive gap between what
+                    institutions teach and what the market needs. On the other side,
+                    businesses struggle to find reliable, skilled digital professionals
+                    to handle their web development, design, and content needs.
+                  </p>
+                  <p className="text-kortix-text-secondary leading-relaxed mb-4">
+                    We decided to solve both problems simultaneously. Our agency arm
+                    delivers professional digital services — from websites to brand
+                    identities to mobile apps. Our education arm runs intensive
+                    mentorship cohorts that take students from beginner to job-ready
+                    in the most in-demand digital skills.
+                  </p>
+                  <p className="text-kortix-text-secondary leading-relaxed">
+                    The result is a self-reinforcing ecosystem: students learn by
+                    working on real client projects, and clients benefit from fresh
+                    talent guided by experienced mentors.
+                  </p>
+                </div>
+              </ElectricBorder>
+
               <ElectricBorder borderRadius={16}>
-              <div className="p-8 rounded-2xl bg-kortix-card">
-                <h2 className="text-2xl font-bold text-foreground mb-4">Our Story</h2>
-                <p className="text-kortix-text-secondary leading-relaxed mb-4">
-                  Kortix Digital was founded with a simple observation: the digital
-                  economy is booming, but there&apos;s a massive gap between what
-                  institutions teach and what the market needs. On the other side,
-                  businesses struggle to find reliable, skilled digital professionals
-                  to handle their web development, design, and content needs.
-                </p>
-                <p className="text-kortix-text-secondary leading-relaxed mb-4">
-                  We decided to solve both problems simultaneously. Our agency arm
-                  delivers professional digital services — from websites to brand
-                  identities to mobile apps. Our education arm runs intensive
-                  mentorship cohorts that take students from beginner to job-ready
-                  in the most in-demand digital skills.
-                </p>
-                <p className="text-kortix-text-secondary leading-relaxed">
-                  The result is a self-reinforcing ecosystem: students learn by
-                  working on real client projects, and clients benefit from fresh
-                  talent guided by experienced mentors.
-                </p>
-              </div>
+                <figure className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-kortix-card">
+                  <Image
+                    src="/group-photo.jpg"
+                    alt="Kortix Digital community and cohort members"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover scale-[0.96]"
+                  />
+                  <figcaption className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-6">
+                    <span className="text-sm font-medium text-white">
+                      The Kortix community — creators, learners &amp; mentors.
+                    </span>
+                  </figcaption>
+                </figure>
               </ElectricBorder>
             </div>
           </ScrollReveal>
