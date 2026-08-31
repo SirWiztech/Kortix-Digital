@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { FaWhatsapp, FaDiscord } from "react-icons/fa";
+import { WhatsAppIcon, DiscordIcon } from "./BrandIcons";
 
 export default function FloatingCTA() {
   return (
@@ -18,7 +18,7 @@ export default function FloatingCTA() {
         aria-label="Chat on WhatsApp"
         className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-kortix-whatsapp shadow-lg shadow-kortix-whatsapp/20 hover:shadow-kortix-whatsapp/40 hover:scale-110 transition-all duration-200"
       >
-        <FaWhatsapp size={24} color="#fff" />
+        <WhatsAppIcon size={24} className="text-white" />
         <span className="absolute right-full mr-3 px-3 py-1.5 bg-kortix-card text-foreground text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-kortix-border">
           Chat with us
         </span>
@@ -31,7 +31,7 @@ export default function FloatingCTA() {
         aria-label="Join Discord"
         className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-kortix-discord shadow-lg shadow-kortix-discord/20 hover:shadow-kortix-discord/40 hover:scale-110 transition-all duration-200"
       >
-        <FaDiscord size={24} color="#fff" />
+        <DiscordIcon size={24} className="text-white" />
         <span className="absolute right-full mr-3 px-3 py-1.5 bg-kortix-card text-foreground text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-kortix-border">
           Join Discord
         </span>
