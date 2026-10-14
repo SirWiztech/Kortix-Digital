@@ -7,13 +7,20 @@ export interface Cohort {
   slug: string;
   track: string;
   description: string;
+  /** Current fee, as shown to users on the page. */
   price: string;
+  /** Listed "was" price the current fee is discounted from. */
   originalPrice: string;
+  /** Machine-readable current fee, must match `price`. */
   priceValue: number;
+  /** ISO 8601 duration for schema, e.g. "P6M". */
+  durationIso?: string;
   duration: string;
   curriculum: CurriculumModule[];
   whatsappLink: string;
   iconName: string;
+  /** ISO date this entry's copy last changed; drives sitemap lastModified. */
+  updated?: string;
 }
 
 export const cohorts: Cohort[] = [

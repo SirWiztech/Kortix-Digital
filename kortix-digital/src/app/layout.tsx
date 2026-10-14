@@ -5,6 +5,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import FloatingChatbot from "@/components/FloatingChatbot";
 import ThemeProvider from "@/components/ThemeProvider";
 import CookieConsent from "@/components/CookieConsent";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -12,7 +13,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kortixdigital.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Kortix Digital — We Build. We Teach. We Transform.",
     template: "%s | Kortix Digital",
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     title: "Kortix Digital — We Build. We Teach. We Transform.",
     description:
       "Digital agency services and mentorship cohorts for the next generation. Web development, design, video editing, app development, and 9 skill tracks.",
-    url: "https://kortixdigital.com",
+    url: SITE_URL,
     images: [
       {
         url: "/apple-touch-icon.png",
@@ -91,8 +92,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Kortix Digital",
-    url: "https://kortixdigital.com",
-    logo: "https://kortixdigital.com/apple-touch-icon.png",
+    url: SITE_URL,
+    logo: `${SITE_URL}/apple-touch-icon.png`,
     description:
       "Digital agency services and mentorship cohorts for the next generation. Web development, design, video editing, app development, and 9 skill tracks.",
     foundingDate: "2025",

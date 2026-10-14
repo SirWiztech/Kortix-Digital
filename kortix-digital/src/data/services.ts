@@ -6,6 +6,8 @@ export interface Service {
   features: string[];
   iconName: string;
   pricing: string;
+  /** ISO date this entry's copy last changed; drives sitemap lastModified. */
+  updated?: string;
 }
 
 export const services: Service[] = [
