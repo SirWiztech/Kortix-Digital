@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { createPageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import SpecularLink from "@/components/SpecularLink";
@@ -19,11 +20,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
-  if (!service) return { title: "Service Not Found" };
-  return {
-    title: service.title,
+  if (!service) return { title: "Service Not Found", robots: { index: false } };
+
+  return createPageMetadata({
+    title: `${service.title} Services in Nigeria`,
     description: service.description,
-  };
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServiceDetailPage({

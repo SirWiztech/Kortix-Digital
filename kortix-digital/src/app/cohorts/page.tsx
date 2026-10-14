@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import CohortCard from "@/components/CohortCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import BrandPatternSection from "@/components/BrandPatternSection";
 import { cohorts } from "@/data/cohorts";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Cohorts",
+export const metadata = createPageMetadata({
+  title: "Tech Skills Cohorts in Nigeria (9 Tracks)",
   description:
-    "Intensive mentorship cohorts in 9 digital skill tracks — web development, app development, cybersecurity, data analysis, UI/UX, digital marketing, content creation, video editing, and web3.",
-};
+    "Mentorship cohorts with live lessons, projects and mentor support in web development, app development, cybersecurity, data analysis, UI/UX, marketing and more.",
+  path: "/cohorts",
+});
 
 export default function CohortsPage() {
   return (

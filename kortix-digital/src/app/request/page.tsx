@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import RequestForm from "@/components/RequestForm";
 import ScrollReveal from "@/components/ScrollReveal";
 import ElectricBorder from "@/components/ui/ElectricBorder";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Request a Service",
+export const metadata = createPageMetadata({
+  title: "Request a Service Quote",
   description:
-    "Request a quote for web development, graphic design, video editing, UI/UX design, or app development services from Kortix Digital.",
-};
+    "Tell us about your project and get a clear quote: web development, app development, graphic design, video editing or UI/UX design from Kortix Digital.",
+  path: "/request",
+});
 
 async function RequestFormWrapper({
   searchParams,

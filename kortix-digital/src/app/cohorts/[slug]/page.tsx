@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { createPageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import SpecularLink from "@/components/SpecularLink";
@@ -19,11 +20,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const cohort = getCohortBySlug(slug);
-  if (!cohort) return { title: "Cohort Not Found" };
-  return {
-    title: `${cohort.track} Cohort`,
+  if (!cohort) return { title: "Cohort Not Found", robots: { index: false } };
+
+  return createPageMetadata({
+    title: `${cohort.track} Course & Mentorship Cohort`,
     description: cohort.description,
-  };
+    path: `/cohorts/${cohort.slug}`,
+  });
 }
 
 export default async function CohortDetailPage({

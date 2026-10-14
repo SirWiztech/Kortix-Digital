@@ -10,33 +10,19 @@ import "./globals.css";
 
 export const viewport: Viewport = {
   interactiveWidget: "resizes-content",
+  themeColor: "#050505",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Kortix Digital — We Build. We Teach. We Transform.",
+    // Homepage title carries the two business lines, not just the tagline.
+    default: "Kortix Digital | Web Development & Tech Training in Nigeria",
     template: "%s | Kortix Digital",
   },
   description:
-    "Digital agency services and mentorship cohorts for the next generation. Web development, graphic design, video editing, UI/UX, app development, and 9 digital skill tracks.",
-  keywords: [
-    "digital agency Nigeria",
-    "web development Nigeria",
-    "mentorship cohorts",
-    "tech bootcamp",
-    "graphic design",
-    "UI/UX design",
-    "app development",
-    "video editing",
-    "cybersecurity",
-    "data analysis",
-    "digital marketing",
-    "web3",
-    "Kortix Digital",
-    "learn tech skills",
-    "digital skills training",
-  ],
+    "Kortix Digital is a Nigerian digital agency and tech training platform. We build websites and mobile apps, and run mentorship cohorts in web development, data, cybersecurity and design.",
+  applicationName: "Kortix Digital",
   authors: [{ name: "Kortix Digital" }],
   creator: "Kortix Digital",
   publisher: "Kortix Digital",
@@ -47,25 +33,20 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_NG",
     siteName: "Kortix Digital",
-    title: "Kortix Digital — We Build. We Teach. We Transform.",
+    title: "Kortix Digital | Web Development & Tech Training in Nigeria",
     description:
-      "Digital agency services and mentorship cohorts for the next generation. Web development, design, video editing, app development, and 9 skill tracks.",
+      "A Nigerian digital agency and mentorship platform: we build websites and apps, and run cohorts in web development, data, cybersecurity and design.",
     url: SITE_URL,
-    images: [
-      {
-        url: "/apple-touch-icon.png",
-        width: 180,
-        height: 180,
-        alt: "Kortix Digital",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kortix Digital — We Build. We Teach. We Transform.",
+    title: "Kortix Digital | Web Development & Tech Training in Nigeria",
     description:
-      "Digital agency services and mentorship cohorts for the next generation.",
-    images: ["/apple-touch-icon.png"],
+      "A Nigerian digital agency and mentorship platform: web development, app development and paid skills cohorts.",
+  },
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION to emit the Search Console tag.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   icons: {
     icon: [
@@ -78,9 +59,6 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  other: {
-    "theme-color": "#050505",
-  },
 };
 
 export default function RootLayout({

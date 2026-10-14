@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import ServiceCard from "@/components/ServiceCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import BrandPatternSection from "@/components/BrandPatternSection";
 import { services } from "@/data/services";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata = createPageMetadata({
+  title: "Digital Agency Services in Nigeria",
   description:
-    "Professional digital agency services — web development, graphic design, video editing, UI/UX design, and app development.",
-};
+    "Web development, app development, graphic design, video editing and UI/UX design for Nigerian businesses — scoped, quoted and delivered by the Kortix Digital team.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

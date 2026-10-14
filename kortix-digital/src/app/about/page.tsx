@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 import BrandPatternSection from "@/components/BrandPatternSection";
@@ -13,12 +12,14 @@ import {
   Target,
   Zap,
 } from "lucide-react";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata = createPageMetadata({
+  title: "About Kortix Digital — Agency & Tech Training",
   description:
-    "Learn about Kortix Digital — a dual-purpose digital agency and mentorship platform building the next generation of digital professionals.",
-};
+    "Kortix Digital is a digital agency and mentorship platform in Nigeria: we deliver client work and train the next generation of digital professionals.",
+  path: "/about",
+});
 
 const values = [
   {

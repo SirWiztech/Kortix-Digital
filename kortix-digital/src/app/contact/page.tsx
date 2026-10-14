@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import SpecularLink from "@/components/SpecularLink";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { WhatsAppIcon, DiscordIcon } from "@/components/BrandIcons";
 import { Mail, ArrowRight } from "lucide-react";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact",
+export const metadata = createPageMetadata({
+  title: "Contact Kortix Digital — Email, WhatsApp & Discord",
   description:
-    "Get in touch with Kortix Digital. Reach us via email, WhatsApp, or Discord for inquiries about our services or cohorts.",
-};
+    "Talk to Kortix Digital about a project or a cohort. Reach us on WhatsApp, by email at kortixdigital@gmail.com, or in our Discord community.",
+  path: "/contact",
+});
 
 const contactMethods = [
   {
