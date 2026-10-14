@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import FloatingChatbot from "@/components/FloatingChatbot";
 import ThemeProvider from "@/components/ThemeProvider";
-import TargetCursor from "@/components/TargetCursor";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
@@ -124,14 +123,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <TargetCursor
-            targetSelector="a, button, .cursor-target"
-            spinDuration={3}
-            hideDefaultCursor
-            hoverDuration={0.3}
-            cursorColor="#ffffff"
-            cursorColorOnTarget="#23F855"
-          />
           <Navbar />
           <main className="flex-1 relative z-10 bg-background/70 backdrop-blur-[2px]">{children}</main>
           <Footer />
