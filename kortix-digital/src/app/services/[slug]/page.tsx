@@ -6,7 +6,7 @@ import SpecularLink from "@/components/SpecularLink";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { services, getServiceBySlug } from "@/data/services";
 import { Check, ArrowRight } from "lucide-react";
-import { getIcon } from "@/lib/icon-map";
+import { fallbackIcon, icons } from "@/lib/icon-map";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -36,7 +36,7 @@ export default async function ServiceDetailPage({
 
   if (!service) notFound();
 
-  const Icon = getIcon(service.iconName);
+  const Icon = icons[service.iconName] ?? fallbackIcon;
 
   return (
     <>

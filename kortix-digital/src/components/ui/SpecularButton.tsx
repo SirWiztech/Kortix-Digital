@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState, type ReactNode } from "react";
+import { useRef, useEffect, type CSSProperties, type ReactNode } from "react";
+import { useMounted } from "@/lib/use-mounted";
 
 const SIZES = {
   sm: "text-[0.85rem] px-[22px] py-[10px]",
@@ -12,15 +13,11 @@ interface SpecularButtonProps {
   children: ReactNode;
   size?: "sm" | "md" | "lg";
   radius?: number;
-  tint?: string;
-  tintOpacity?: number;
   blur?: number;
   textColor?: string;
   lineColor?: string;
   baseColor?: string;
   intensity?: number;
-  shineSize?: number;
-  shineFade?: number;
   thickness?: number;
   speed?: number;
   followMouse?: boolean;
@@ -33,21 +30,19 @@ interface SpecularButtonProps {
   rel?: string;
   disabled?: boolean;
   as?: "button" | "a";
+  /** Only used when `as="button"`. Defaults to the browser default (submit in a form). */
+  type?: "button" | "submit" | "reset";
 }
 
 export default function SpecularButton({
   children,
   size = "md",
   radius = 18,
-  tint = "#070707",
-  tintOpacity = 0,
   blur = 0,
   textColor = "#f5f5f5",
   lineColor = "#23F855",
   baseColor = "#080908",
   intensity = 1,
-  shineSize = 10,
-  shineFade = 40,
   thickness = 1,
   speed = 0.35,
   followMouse = true,
@@ -60,14 +55,11 @@ export default function SpecularButton({
   rel,
   disabled,
   as = "button",
+  type,
 }: SpecularButtonProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shineRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   useEffect(() => {
     if (!mounted || !followMouse) return;
@@ -122,10 +114,15 @@ export default function SpecularButton({
     return () => cancelAnimationFrame(animId);
   }, [mounted, autoAnimate, followMouse, lineColor, intensity, speed]);
 
-  const Tag = as === "a" ? "a" : "button";
   const finalTarget = target || (href?.startsWith("http") ? "_blank" : undefined);
   const finalRel = rel || (href?.startsWith("http") ? "noopener noreferrer" : undefined);
-  const linkProps = as === "a" ? { href, target: finalTarget, rel: finalRel } : {};
+  const contentClass = `relative z-10 cursor-pointer font-medium transition-all duration-200 w-full inline-flex items-center justify-center gap-2 ${disabled ? "opacity-50 pointer-events-none" : ""} ${SIZES[size] || SIZES.md}`;
+  const contentStyle: CSSProperties = {
+    color: textColor,
+    backgroundColor: "transparent",
+    backdropFilter: blur ? `blur(${blur}px)` : "none",
+    borderRadius: radius,
+  };
 
   return (
     <div
@@ -142,20 +139,28 @@ export default function SpecularButton({
         className="absolute inset-0 pointer-events-none transition-opacity duration-300"
         style={{ zIndex: 0, borderRadius: radius }}
       />
-      <Tag
-        {...(linkProps as any)}
-        onClick={onClick}
-        disabled={disabled}
-        className={`relative z-10 cursor-pointer font-medium transition-all duration-200 w-full inline-flex items-center justify-center gap-2 ${disabled ? "opacity-50 pointer-events-none" : ""} ${SIZES[size] || SIZES.md}`}
-        style={{
-          color: textColor,
-          backgroundColor: "transparent",
-          backdropFilter: blur ? `blur(${blur}px)` : "none",
-          borderRadius: radius,
-        }}
-      >
-        {children}
-      </Tag>
+      {as === "a" ? (
+        <a
+          href={href}
+          target={finalTarget}
+          rel={finalRel}
+          onClick={onClick}
+          className={contentClass}
+          style={contentStyle}
+        >
+          {children}
+        </a>
+      ) : (
+        <button
+          type={type}
+          onClick={onClick}
+          disabled={disabled}
+          className={contentClass}
+          style={contentStyle}
+        >
+          {children}
+        </button>
+      )}
     </div>
   );
 }

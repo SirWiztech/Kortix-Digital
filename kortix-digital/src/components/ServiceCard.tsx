@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { type Service } from "@/data/services";
-import { getIcon } from "@/lib/icon-map";
+import { fallbackIcon, icons } from "@/lib/icon-map";
 import ElectricBorder from "./ui/ElectricBorder";
 
 export default function ServiceCard({
@@ -14,7 +14,7 @@ export default function ServiceCard({
   service: Service;
   index?: number;
 }) {
-  const Icon = getIcon(service.iconName);
+  const Icon = icons[service.iconName] ?? fallbackIcon;
 
   return (
     <motion.div

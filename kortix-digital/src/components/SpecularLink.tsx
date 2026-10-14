@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import SpecularButton from "./ui/SpecularButton";
 import { type ReactNode } from "react";
+import SpecularButton from "./ui/SpecularButton";
+import { useMounted } from "@/lib/use-mounted";
 
 interface SpecularLinkProps {
   href: string;
@@ -33,11 +33,7 @@ export default function SpecularLink({
   rel,
   onClick,
 }: SpecularLinkProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (!mounted) {
     const finalTarget = target || (href?.startsWith("http") ? "_blank" : undefined);

@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, Clock, Users } from "lucide-react";
 import { type Cohort } from "@/data/cohorts";
-import { getIcon } from "@/lib/icon-map";
+import { fallbackIcon, icons } from "@/lib/icon-map";
 import SpecularButton from "./ui/SpecularButton";
 import ElectricBorder from "./ui/ElectricBorder";
 
@@ -15,7 +14,7 @@ export default function CohortCard({
   cohort: Cohort;
   index?: number;
 }) {
-  const Icon = getIcon(cohort.iconName);
+  const Icon = icons[cohort.iconName] ?? fallbackIcon;
   const isPlaceholder = cohort.whatsappLink === "#";
 
   return (

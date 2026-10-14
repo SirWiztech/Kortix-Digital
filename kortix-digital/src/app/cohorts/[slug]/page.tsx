@@ -6,7 +6,7 @@ import SpecularLink from "@/components/SpecularLink";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { cohorts, getCohortBySlug } from "@/data/cohorts";
 import { ArrowRight, Users, Clock } from "lucide-react";
-import { getIcon } from "@/lib/icon-map";
+import { fallbackIcon, icons } from "@/lib/icon-map";
 
 export function generateStaticParams() {
   return cohorts.map((c) => ({ slug: c.slug }));
@@ -36,7 +36,7 @@ export default async function CohortDetailPage({
 
   if (!cohort) notFound();
 
-  const Icon = getIcon(cohort.iconName);
+  const Icon = icons[cohort.iconName] ?? fallbackIcon;
   const isPlaceholder = cohort.whatsappLink === "#";
   let topicIndex = 0;
 

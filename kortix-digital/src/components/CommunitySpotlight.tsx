@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import ScrollReveal from "./ScrollReveal";
 import SpecularLink from "./SpecularLink";
@@ -13,7 +12,9 @@ export default function CommunitySpotlight() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="relative min-h-[320px] sm:min-h-[440px] rounded-3xl overflow-hidden isolate border border-kortix-border">
-            {/* TODO: replace with a community/group photo on /public/images/group-photo.jpg */}
+            {/* TODO(owner): replace with a real community/group photo at
+                /public/images/group-photo.jpg — the current background is a
+                placeholder gradient because that file does not exist yet. */}
             <div
               className="absolute inset-0 bg-gradient-to-br from-[#0b120c] via-kortix-dark to-black"
               style={{
@@ -47,8 +48,8 @@ export default function CommunitySpotlight() {
                 </h2>
                 <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-8">
                   Connect with mentors, collaborate with peers, and grow
-                  alongside hundreds of learners and businesses building the
-                  future with Kortix Digital.
+                  alongside other learners and businesses building the future
+                  with Kortix Digital.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

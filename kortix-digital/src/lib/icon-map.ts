@@ -13,7 +13,12 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-const iconMap: Record<string, LucideIcon> = {
+/**
+ * Static lookup of icon components by the `iconName` stored in the data files.
+ * Kept as a plain record (instead of a `getIcon()` function) so components are
+ * never *created* during render — that would reset their state on every render.
+ */
+export const icons: Record<string, LucideIcon> = {
   Code,
   Smartphone,
   Shield,
@@ -27,6 +32,4 @@ const iconMap: Record<string, LucideIcon> = {
   Palette,
 };
 
-export function getIcon(name: string): LucideIcon {
-  return iconMap[name] ?? Code;
-}
+export const fallbackIcon: LucideIcon = Code;
