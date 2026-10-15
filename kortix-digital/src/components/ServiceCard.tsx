@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import ScrollReveal from "./ScrollReveal";
 import { ArrowRight } from "lucide-react";
 import { type Service } from "@/data/services";
 import { fallbackIcon, icons } from "@/lib/icon-map";
@@ -17,12 +17,9 @@ export default function ServiceCard({
   const Icon = icons[service.iconName] ?? fallbackIcon;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-    >
+    // ScrollReveal animates with CSS and leaves the markup visible without
+    // JavaScript, so a card is never stuck at opacity: 0 for a crawler.
+    <ScrollReveal delay={index * 0.1} className="h-full">
       <ElectricBorder borderRadius={16} className="h-full">
       {/* The card contains a repeated "Request Quote", so the accessible name
           spells out which service the link actually opens. */}
@@ -52,6 +49,6 @@ export default function ServiceCard({
         </div>
       </Link>
       </ElectricBorder>
-    </motion.div>
+    </ScrollReveal>
   );
 }

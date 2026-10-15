@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import TrackedLink from "./TrackedLink";
 import {
   Mail,
   MessageCircle,
   ExternalLink,
 } from "lucide-react";
+import { WHATSAPP_URL, DISCORD_URL, CONTACT_EMAIL } from "@/lib/site";
 
 const footerLinks = {
   services: [
@@ -61,31 +63,37 @@ export default function Footer() {
               Digital agency services and mentorship cohorts for the next generation.
             </p>
             <div className="flex flex-col gap-3">
-              <a
-                href="https://wa.me/2347071617216"
+              <TrackedLink
+                href={WHATSAPP_URL}
+                event="click_whatsapp"
+                params={{ location: "footer" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-whatsapp transition-colors"
               >
                 <MessageCircle size={16} />
                 WhatsApp
-              </a>
-              <a
-                href="https://discordapp.com/users/1466951307708469516"
+              </TrackedLink>
+              <TrackedLink
+                href={DISCORD_URL}
+                event="click_discord"
+                params={{ location: "footer" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-discord transition-colors"
               >
                 <ExternalLink size={16} />
                 Discord
-              </a>
-              <a
-                href="mailto:kortixdigital@gmail.com"
+              </TrackedLink>
+              <TrackedLink
+                href={`mailto:${CONTACT_EMAIL}`}
+                event="click_email"
+                params={{ location: "footer" }}
                 className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-green transition-colors"
               >
                 <Mail size={16} />
-                kortixdigital@gmail.com
-              </a>
+                {CONTACT_EMAIL}
+              </TrackedLink>
             </div>
           </div>
 

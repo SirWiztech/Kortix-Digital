@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "motion/react";
 import SpecularButton from "./ui/SpecularButton";
 
 export default function Hero() {
@@ -167,13 +166,14 @@ export default function Hero() {
     };
   }, []);
 
-  const fadeUp = (i: number) => ({
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.2 + 0.3, duration: 0.7, ease: "easeOut" as const },
-    },
+  /**
+   * Entrance animation is CSS-only (see .animate-fade-up in globals.css), so
+   * the hero is readable immediately and without JavaScript — the previous
+   * motion/react version server-rendered the hero at opacity: 0.
+   */
+  const FADE_UP = "animate-fade-up motion-reduce:animate-none";
+  const fadeDelay = (index: number) => ({
+    animationDelay: `${index * 0.2 + 0.3}s`,
   });
 
   return (
@@ -183,18 +183,12 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-kortix-darker/60 via-kortix-darker/40 to-kortix-darker/80 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          custom={0}
-          variants={fadeUp(0)}
-          initial="hidden"
-          animate="visible"
-          className="mb-6"
-        >
+        <div className={`mb-6 ${FADE_UP}`} style={fadeDelay(0)}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-kortix-green/10 border border-kortix-green/20 text-kortix-green text-sm font-medium backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-kortix-green animate-pulse-green" />
             Digital Agency &amp; Mentorship Platform
           </span>
-        </motion.div>
+        </div>
 
         {/*
           One H1 for the page, with the tagline split into spans so the visual
@@ -211,35 +205,22 @@ export default function Hero() {
           </span>
         </h1>
 
-        <motion.p
-          custom={2}
-          variants={fadeUp(2)}
-          initial="hidden"
-          animate="visible"
-          className="max-w-2xl mx-auto text-lg text-kortix-text-secondary mb-10 leading-relaxed"
-        >
-          Professional digital agency services paired with intensive mentorship
-          cohorts — everything you need to succeed in the digital economy.
-        </motion.p>
+        <div className={FADE_UP} style={fadeDelay(2)}>
+          <p className="max-w-2xl mx-auto text-lg text-kortix-text-secondary mb-4 leading-relaxed">
+            Professional digital agency services paired with intensive mentorship
+            cohorts — everything you need to succeed in the digital economy.
+          </p>
 
-        <motion.p
-          custom={2}
-          variants={fadeUp(2)}
-          initial="hidden"
-          animate="visible"
-          className="max-w-3xl mx-auto text-sm sm:text-base text-kortix-muted mb-10"
-        >
-          Web development, app development, graphic design and video editing for
-          businesses, plus paid mentorship cohorts in web development, data
-          analysis, cybersecurity, UI/UX design and digital marketing.
-        </motion.p>
+          <p className="max-w-3xl mx-auto text-sm sm:text-base text-kortix-muted mb-10">
+            Web development, app development, graphic design and video editing for
+            businesses, plus paid mentorship cohorts in web development, data
+            analysis, cybersecurity, UI/UX design and digital marketing.
+          </p>
+        </div>
 
-        <motion.div
-          custom={3}
-          variants={fadeUp(3)}
-          initial="hidden"
-          animate="visible"
-          className="flex md:mb-0 mb-20 flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10"
+        <div
+          className={`flex md:mb-0 mb-20 flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 ${FADE_UP}`}
+          style={fadeDelay(3)}
         >
           <SpecularButton
             as="a"
@@ -257,7 +238,7 @@ export default function Hero() {
           >
             Join a Cohort
           </SpecularButton>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MessageCircle, Sparkles, X, Send } from "lucide-react";
 import { WhatsAppIcon } from "./BrandIcons";
 import { respondToMessage, WHATSAPP_LINK } from "@/lib/chatbot-engine";
+import { trackEvent } from "@/lib/analytics";
 
 interface ChatMessage {
   id: number;
@@ -140,7 +141,10 @@ export default function FloatingChatbot() {
                   href={WHATSAPP_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => sendMessage("Talk to a human")}
+                  onClick={() => {
+                    trackEvent("click_whatsapp", { location: "chatbot" });
+                    sendMessage("Talk to a human");
+                  }}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-kortix-whatsapp/15 text-kortix-whatsapp border border-kortix-whatsapp/30 hover:bg-kortix-whatsapp hover:text-white transition-all duration-200"
                 >
                   <WhatsAppIcon size={12} />
@@ -176,7 +180,11 @@ export default function FloatingChatbot() {
       </AnimatePresence>
 
       <motion.button
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => {
+          // Only the open action is a conversion signal, not the close.
+          if (!open) trackEvent("open_chatbot");
+          setOpen((prev) => !prev);
+        }}
         aria-label={open ? "Close chat" : "Open chat"}
         aria-expanded={open}
         whileHover={{ scale: 1.08 }}

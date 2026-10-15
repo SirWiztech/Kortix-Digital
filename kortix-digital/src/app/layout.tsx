@@ -5,6 +5,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import FloatingChatbot from "@/components/FloatingChatbot";
 import ThemeProvider from "@/components/ThemeProvider";
 import CookieConsent from "@/components/CookieConsent";
+import Analytics from "@/components/Analytics";
 import JsonLd from "@/components/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Kortix Digital",
   },
   description:
-    "Kortix Digital is a Nigerian digital agency and tech training platform. We build websites and mobile apps, and run mentorship cohorts in web development, data, cybersecurity and design.",
+    "Nigerian digital agency and tech training platform: websites, apps and branding for businesses, plus mentorship cohorts in web development, data and design.",
   applicationName: "Kortix Digital",
   authors: [{ name: "Kortix Digital" }],
   creator: "Kortix Digital",
@@ -89,6 +90,8 @@ export default function RootLayout({
             <FloatingCTA />
           </div>
           <CookieConsent />
+          {/* Loads GA4 only after the visitor accepts cookies. */}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

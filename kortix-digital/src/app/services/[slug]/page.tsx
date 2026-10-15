@@ -25,7 +25,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
-  if (!service) return { title: "Service Not Found", robots: { index: false } };
+  // Unknown slug: let the not-found page supply the metadata.
+  if (!service) return {};
 
   return createPageMetadata({
     title: `${service.title} Services in Nigeria`,

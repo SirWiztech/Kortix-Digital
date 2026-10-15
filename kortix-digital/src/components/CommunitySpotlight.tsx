@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
 import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
 import SpecularLink from "./SpecularLink";
+import TrackedLink from "./TrackedLink";
 import { WhatsAppIcon } from "./BrandIcons";
 import { ArrowRight, Users } from "lucide-react";
 
@@ -41,13 +41,7 @@ export default function CommunitySpotlight() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
             <div className="relative z-10 flex flex-col justify-end h-full p-6 sm:p-12 min-h-[320px] sm:min-h-[440px]">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="max-w-2xl"
-              >
+              <ScrollReveal delay={0.1} className="max-w-2xl">
                 <div className="flex items-center gap-2 text-kortix-green text-sm font-semibold uppercase tracking-wider mb-3">
                   <Users size={16} />
                   Our Community
@@ -69,8 +63,10 @@ export default function CommunitySpotlight() {
                   >
                     Join a Cohort
                   </SpecularLink>
-                  <a
+                  <TrackedLink
                     href="https://wa.me/2347071617216"
+                    event="click_whatsapp"
+                    params={{ location: "community_section" }}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white/90 hover:text-white transition-colors"
@@ -78,9 +74,9 @@ export default function CommunitySpotlight() {
                     <WhatsAppIcon size={18} className="text-kortix-whatsapp" />
                     Chat on WhatsApp
                     <ArrowRight size={16} className="opacity-70" />
-                  </a>
+                  </TrackedLink>
                 </div>
-              </motion.div>
+              </ScrollReveal>
             </div>
           </div>
         </ScrollReveal>

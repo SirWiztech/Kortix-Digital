@@ -7,10 +7,11 @@ import SpecularLink from "@/components/SpecularLink";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import FaqAccordion from "@/components/FaqAccordion";
+import JoinCohortButton from "@/components/JoinCohortButton";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { cohorts, enrollmentSteps, getCohortBySlug } from "@/data/cohorts";
 import { getServiceBySlug } from "@/data/services";
-import { ArrowRight, Users, Clock, Check } from "lucide-react";
+import { ArrowRight, Clock, Check } from "lucide-react";
 import { fallbackIcon, icons } from "@/lib/icon-map";
 import { courseSchema, faqSchema } from "@/lib/schema";
 
@@ -25,7 +26,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const cohort = getCohortBySlug(slug);
-  if (!cohort) return { title: "Cohort Not Found", robots: { index: false } };
+  // Unknown slug: return nothing so the not-found page's own metadata (title,
+  // noindex) is used instead of inventing a title for a page that 404s.
+  if (!cohort) return {};
 
   return createPageMetadata({
     title: `${cohort.track} Course & Mentorship Cohort`,
@@ -45,7 +48,6 @@ export default async function CohortDetailPage({
   if (!cohort) notFound();
 
   const Icon = icons[cohort.iconName] ?? fallbackIcon;
-  const isPlaceholder = cohort.whatsappLink === "#";
   const relatedService = cohort.relatedServiceSlug
     ? getServiceBySlug(cohort.relatedServiceSlug)
     : undefined;
@@ -116,23 +118,10 @@ export default async function CohortDetailPage({
               </div>
             </div>
 
-            {isPlaceholder ? (
-              <div className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base bg-kortix-border text-kortix-muted cursor-not-allowed">
-                <Users size={20} />
-                WhatsApp Link Coming Soon
-              </div>
-            ) : (
-              <SpecularLink
-                href={cohort.whatsappLink}
-                size="lg"
-                target="_blank"
-                rel="noopener noreferrer"
-                lineColor="#25D366"
-              >
-                <Users size={20} />
-                Join WhatsApp Group
-              </SpecularLink>
-            )}
+            <JoinCohortButton
+              cohortTrack={cohort.track}
+              whatsappLink={cohort.whatsappLink}
+            />
           </ScrollReveal>
         </div>
       </section>
@@ -243,23 +232,10 @@ export default async function CohortDetailPage({
                   cohort, or ask us anything first.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  {isPlaceholder ? (
-                    <div className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base bg-kortix-border text-kortix-muted cursor-not-allowed">
-                      <Users size={20} />
-                      Link Coming Soon
-                    </div>
-                  ) : (
-                    <SpecularLink
-                      href={cohort.whatsappLink}
-                      size="lg"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      lineColor="#25D366"
-                    >
-                      <Users size={20} />
-                      Join WhatsApp Group
-                    </SpecularLink>
-                  )}
+                  <JoinCohortButton
+                    cohortTrack={cohort.track}
+                    whatsappLink={cohort.whatsappLink}
+                  />
                   <SpecularLink
                     href="/contact"
                     size="lg"

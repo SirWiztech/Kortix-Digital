@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import ScrollReveal from "./ScrollReveal";
 import { ArrowRight, Clock, Users } from "lucide-react";
 import { type Cohort } from "@/data/cohorts";
 import { fallbackIcon, icons } from "@/lib/icon-map";
+import { trackEvent } from "@/lib/analytics";
 import SpecularButton from "./ui/SpecularButton";
 import ElectricBorder from "./ui/ElectricBorder";
 
@@ -18,13 +19,9 @@ export default function CohortCard({
   const isPlaceholder = cohort.whatsappLink === "#";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="h-full"
-    >
+    // CSS-based reveal: the card is visible in the server HTML and without
+    // JavaScript, and only animates once scripting is running.
+    <ScrollReveal delay={index * 0.08} className="h-full">
       <ElectricBorder borderRadius={16} className="h-full">
       <div className="group h-full p-6 sm:p-8 rounded-2xl bg-kortix-card transition-all duration-300 hover:shadow-lg hover:shadow-kortix-green/5 flex flex-col hover:-translate-y-1">
         <div className="w-12 h-12 rounded-xl bg-kortix-green/10 flex items-center justify-center mb-5">
@@ -70,6 +67,10 @@ export default function CohortCard({
               radius={8}
               lineColor="#25D366"
               aria-label={`Join the ${cohort.track} cohort WhatsApp group`}
+              onClick={() => {
+                trackEvent("join_cohort_click", { cohort: cohort.track });
+                trackEvent("click_whatsapp", { location: "cohort_card" });
+              }}
             >
               <Users size={16} />
               Join WhatsApp Group
@@ -95,6 +96,6 @@ export default function CohortCard({
         </div>
       </div>
       </ElectricBorder>
-    </motion.div>
+    </ScrollReveal>
   );
 }

@@ -11,6 +11,7 @@ import {
   requestServiceSchema,
   type RequestServiceInput,
 } from "@/lib/request-schema";
+import { trackEvent } from "@/lib/analytics";
 import SpecularButton from "./ui/SpecularButton";
 
 const currencies = REQUEST_CURRENCIES;
@@ -18,6 +19,19 @@ const currencies = REQUEST_CURRENCIES;
 // Validation rules live in lib/request-schema.ts and are shared with the API
 // route, so the browser and the server can never disagree about what is valid.
 type FormData = RequestServiceInput;
+
+/**
+ * The /request page receives a service *slug* in the query string
+ * (?service=graphic-design) while the select is keyed by service title. Match
+ * either, otherwise the preselection silently does nothing.
+ */
+function initialService(value?: string): string {
+  if (!value) return "";
+  const match = services.find(
+    (service) => service.slug === value || service.title === value,
+  );
+  return match?.title ?? "";
+}
 
 export default function RequestForm({
   defaultService,
@@ -34,7 +48,7 @@ export default function RequestForm({
   } = useForm<FormData>({
     resolver: zodResolver(requestServiceSchema),
     defaultValues: {
-      service: defaultService || "",
+      service: initialService(defaultService),
       currency: "NGN",
     },
   });
@@ -55,6 +69,12 @@ export default function RequestForm({
         setErrorMessage(payload?.error ?? null);
         throw new Error("Request failed");
       }
+      // Primary conversion. Consent-gated: fires nothing unless GA4 is loaded.
+      trackEvent("generate_lead", {
+        service: data.service,
+        currency: data.currency ?? "NGN",
+        currency_value: data.budget ? Number(data.budget) : 0,
+      });
       setStatus("success");
     } catch {
       setStatus("error");

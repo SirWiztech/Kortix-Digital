@@ -1,8 +1,12 @@
 import ScrollReveal from "@/components/ScrollReveal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SpecularLink from "@/components/SpecularLink";
+import TrackedLink from "@/components/TrackedLink";
+import type { AnalyticsEvent } from "@/lib/analytics";
+import { CONTACT_EMAIL, DISCORD_URL, WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { WhatsAppIcon, DiscordIcon } from "@/components/BrandIcons";
+import type { ComponentType } from "react";
 import { Mail, ArrowRight } from "lucide-react";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -13,30 +17,42 @@ export const metadata = createPageMetadata({
   path: "/contact",
 });
 
-const contactMethods = [
+const contactMethods: {
+  // Lucide icons and the local brand SVGs take the same two props.
+  icon: ComponentType<{ size?: number; className?: string }>;
+  label: string;
+  value: string;
+  href: string;
+  color: string;
+  bgColor: string;
+  event: AnalyticsEvent;
+}[] = [
   {
     icon: Mail,
     label: "Email",
-    value: "kortixdigital@gmail.com",
-    href: "mailto:kortixdigital@gmail.com",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
     color: "text-kortix-green",
     bgColor: "bg-kortix-green/10",
+    event: "click_email",
   },
   {
     icon: WhatsAppIcon,
     label: "WhatsApp",
-    value: "+234 707 161 7216",
-    href: "https://wa.me/2347071617216",
+    value: WHATSAPP_DISPLAY,
+    href: WHATSAPP_URL,
     color: "text-kortix-whatsapp",
     bgColor: "bg-kortix-whatsapp/10",
+    event: "click_whatsapp",
   },
   {
     icon: DiscordIcon,
     label: "Discord",
     value: "Join our community",
-    href: "https://discordapp.com/users/1466951307708469516",
+    href: DISCORD_URL,
     color: "text-kortix-discord",
     bgColor: "bg-kortix-discord/10",
+    event: "click_discord",
   },
 ];
 
@@ -74,8 +90,10 @@ export default function ContactPage() {
               return (
                 <ScrollReveal key={method.label} delay={i * 0.1}>
                   <ElectricBorder borderRadius={16} className="block">
-                  <a
+                  <TrackedLink
                     href={method.href}
+                    event={method.event}
+                    params={{ location: "contact_page" }}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block p-8 rounded-2xl bg-kortix-card transition-all duration-300 text-center group hover:-translate-y-1"
@@ -91,7 +109,7 @@ export default function ContactPage() {
                     <p className="text-sm text-kortix-text-secondary">
                       {method.value}
                     </p>
-                  </a>
+                  </TrackedLink>
                   </ElectricBorder>
                 </ScrollReveal>
               );
