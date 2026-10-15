@@ -14,7 +14,11 @@ export default function Hero() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    // The particle field is decoration. With "reduce motion" on we draw
+    // nothing and never start a render loop at all.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let animationFrameId = 0;
     const particles: Particle[] = [];
     const mouse = { x: null as number | null, y: null as number | null, radius: 200 };
 
@@ -136,14 +140,30 @@ export default function Hero() {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseout", handleMouseOut);
 
+    // Only animate while the tab is actually visible — a backgrounded tab was
+    // burning CPU on hundreds of particle updates per frame.
+    const start = () => {
+      if (!animationFrameId) animationFrameId = requestAnimationFrame(animate);
+    };
+    const stop = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animationFrameId = 0;
+    };
+    const handleVisibilityChange = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     init();
-    animate();
+    start();
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseout", handleMouseOut);
-      cancelAnimationFrame(animationFrameId);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      stop();
     };
   }, []);
 

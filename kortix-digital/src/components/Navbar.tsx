@@ -115,7 +115,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-kortix-text-secondary hover:text-foreground"
+            className="md:hidden inline-flex items-center justify-center w-12 h-12 -mr-2 rounded-lg text-kortix-text-secondary hover:text-foreground"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -143,7 +143,8 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={closeMobile}
-                    className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    // py-3.5 keeps each mobile menu row at a 48px tap target.
+                    className={`block px-4 py-3.5 rounded-lg text-sm font-medium transition-colors ${
                       isActive
                         ? "text-kortix-green bg-kortix-green/10"
                         : "text-kortix-text-secondary hover:text-foreground hover:bg-foreground/5"
@@ -155,7 +156,7 @@ export default function Navbar() {
               })}
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium text-kortix-text-secondary hover:text-foreground hover:bg-foreground/5 transition-colors"
+                className="flex items-center gap-3 w-full px-4 py-3.5 rounded-lg text-sm font-medium text-kortix-text-secondary hover:text-foreground hover:bg-foreground/5 transition-colors"
               >
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
                 {theme === "dark" ? "Light Mode" : "Dark Mode"}

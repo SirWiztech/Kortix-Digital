@@ -1,20 +1,10 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Alro";
-  src: url("/ttf/alro-alro-regular-400.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Alro";
-  src: url("/ttf/alro-alro-bold-700.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/*
+  The brand font is loaded by next/font/local in src/app/font.ts, which
+  self-hosts and preloads it and exposes it as --font-alro. The old
+  @font-face rules that pointed at /public/*.ttf were removed here.
+*/
 
 :root {
   color-scheme: dark light;
@@ -61,8 +51,8 @@
   --color-kortix-text-secondary: var(--kortix-text-secondary);
   --color-kortix-discord: var(--kortix-discord);
   --color-kortix-whatsapp: var(--kortix-whatsapp);
-  --font-sans: "Alro", system-ui, -apple-system, sans-serif;
-  --font-mono: "Alro", ui-monospace, monospace;
+  --font-sans: var(--font-alro), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-alro), ui-monospace, monospace;
 }
 
 html {
@@ -76,10 +66,20 @@ body {
 }
 
 body {
-  font-family: "Alro", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-alro), system-ui, -apple-system, sans-serif;
 }
 
-body, section, div, header, footer, nav, main, aside, article, a, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, li, ul, ol {
+/*
+  Colour transitions are scoped to the elements people actually interact with.
+  This used to be applied to every element on the page (body, div, span, p,
+  li …), which forced the browser to keep transition records for the whole
+  document. Individual components still add their own Tailwind transitions.
+*/
+a,
+button,
+input,
+select,
+textarea {
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -139,6 +139,27 @@ body, section, div, header, footer, nav, main, aside, article, a, button, input,
 
 .animate-pulse-green {
   animation: pulse-green 3s ease-in-out infinite;
+}
+
+/*
+  Respect the operating-system "reduce motion" setting: CSS animations and
+  transitions collapse to a single frame, and smooth scrolling is switched off.
+  JavaScript-driven animation is handled separately in the components that use
+  it (ScrollReveal, the particle canvas, the testimonial carousel).
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 ::selection {

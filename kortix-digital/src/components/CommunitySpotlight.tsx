@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
 import SpecularLink from "./SpecularLink";
 import { WhatsAppIcon } from "./BrandIcons";
@@ -12,17 +13,25 @@ export default function CommunitySpotlight() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="relative min-h-[320px] sm:min-h-[440px] rounded-3xl overflow-hidden isolate border border-kortix-border">
-            {/* TODO(owner): replace with a real community/group photo at
-                /public/images/group-photo.jpg — the current background is a
-                placeholder gradient because that file does not exist yet. */}
+            {/*
+              The photo lives at /public/group-photo.jpg. The old CSS
+              background pointed at /images/group-photo.jpg, which does not
+              exist, so the browser requested a 404 and only the gradient
+              showed. Serving it through next/image now gives correctly sized
+              AVIF/WebP variants. Decorative: the copy beside it describes the
+              community, so the alt is intentionally empty.
+              TODO(owner): swap in a photo you have permission to publish.
+            */}
+            <Image
+              src="/group-photo.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
+            />
             <div
-              className="absolute inset-0 bg-gradient-to-br from-[#0b120c] via-kortix-dark to-black"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to bottom right, rgba(11,18,12,0.6), rgba(5,5,5,0.9)), url('/images/group-photo.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+              className="absolute inset-0 bg-gradient-to-br from-[#0b120c]/70 via-kortix-dark/80 to-black/90"
+              aria-hidden
             />
 
             <div className="absolute inset-0 grain-overlay" />

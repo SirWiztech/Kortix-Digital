@@ -65,7 +65,7 @@ export default function Footer() {
                 href="https://wa.me/2347071617216"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-kortix-text-secondary hover:text-kortix-whatsapp transition-colors"
+                className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-whatsapp transition-colors"
               >
                 <MessageCircle size={16} />
                 WhatsApp
@@ -74,14 +74,14 @@ export default function Footer() {
                 href="https://discordapp.com/users/1466951307708469516"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-kortix-text-secondary hover:text-kortix-discord transition-colors"
+                className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-discord transition-colors"
               >
                 <ExternalLink size={16} />
                 Discord
               </a>
               <a
                 href="mailto:kortixdigital@gmail.com"
-                className="flex items-center gap-2 text-sm text-kortix-text-secondary hover:text-kortix-green transition-colors"
+                className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-green transition-colors"
               >
                 <Mail size={16} />
                 kortixdigital@gmail.com
@@ -93,12 +93,14 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               Services
             </h4>
-            <ul className="space-y-2.5">
+            {/* inline-block + py-1 gives each footer link a ~32px tap target
+                instead of a 20px line box. */}
+            <ul className="space-y-1.5">
               {footerLinks.services.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-kortix-muted hover:text-kortix-green transition-colors"
+                    className="inline-block py-1 text-sm text-kortix-muted hover:text-kortix-green transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -111,12 +113,12 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               Cohorts
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-1.5">
               {footerLinks.cohorts.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-kortix-muted hover:text-kortix-green transition-colors"
+                    className="inline-block py-1 text-sm text-kortix-muted hover:text-kortix-green transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -129,12 +131,12 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               Company
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-1.5">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-kortix-muted hover:text-kortix-green transition-colors"
+                    className="inline-block py-1 text-sm text-kortix-muted hover:text-kortix-green transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -150,7 +152,7 @@ export default function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-xs text-kortix-muted hover:text-kortix-green transition-colors"
+                  className="inline-block py-1.5 text-xs text-kortix-muted hover:text-kortix-green transition-colors"
                 >
                   {link.label}
                 </Link>

@@ -8,6 +8,7 @@ import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
+import { alro } from "./font";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -72,7 +73,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className="h-full antialiased"
+      className={`${alro.variable} h-full antialiased`}
     >
       <head>
         {/* Organization + WebSite describe the brand on every page. */}

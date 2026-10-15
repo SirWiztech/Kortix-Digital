@@ -1,11 +1,19 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import CohortCard from "@/components/CohortCard";
-import Testimonials from "@/components/Testimonials";
-import VideoShowcase from "@/components/VideoShowcase";
-import CommunitySpotlight from "@/components/CommunitySpotlight";
 import FAQ from "@/components/FAQ";
+
+/**
+ * Everything below the first two sections is code-split. These components are
+ * still server-rendered (so the HTML is complete without JS), but their client
+ * JavaScript — motion, the carousel and the video facade — is fetched in its
+ * own chunk instead of being part of the homepage's initial payload.
+ */
+const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const VideoShowcase = dynamic(() => import("@/components/VideoShowcase"));
+const CommunitySpotlight = dynamic(() => import("@/components/CommunitySpotlight"));
 import ScrollReveal from "@/components/ScrollReveal";
 import BrandPatternSection from "@/components/BrandPatternSection";
 import SpecularLink from "@/components/SpecularLink";

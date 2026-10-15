@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
@@ -78,6 +78,9 @@ export default function Testimonials() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // With "reduce motion" on, the quotes stay put: the slide transition and the
+  // 6s autoplay timer are both switched off (arrows and dots still work).
+  const reduceMotion = useReducedMotion();
 
   const count = testimonials.length;
 
@@ -89,14 +92,14 @@ export default function Testimonials() {
   const prev = useCallback(() => goTo(index - 1), [goTo, index]);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || reduceMotion) return;
     timerRef.current = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % count);
     }, AUTOPLAY_MS);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [paused, count]);
+  }, [paused, count, reduceMotion]);
 
   const active = testimonials[index];
 
@@ -176,25 +179,30 @@ export default function Testimonials() {
             <button
               onClick={prev}
               aria-label="Previous testimonial"
-              className="absolute left-0 sm:-left-16 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-kortix-card border border-kortix-border flex items-center justify-center text-kortix-green hover:bg-kortix-green hover:text-kortix-darker transition-all duration-200 z-10"
+              className="absolute left-0 sm:-left-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-kortix-card border border-kortix-border flex items-center justify-center text-kortix-green hover:bg-kortix-green hover:text-kortix-darker transition-all duration-200 z-10"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={next}
               aria-label="Next testimonial"
-              className="absolute right-0 sm:-right-16 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-kortix-card border border-kortix-border flex items-center justify-center text-kortix-green hover:bg-kortix-green hover:text-kortix-darker transition-all duration-200 z-10"
+              className="absolute right-0 sm:-right-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-kortix-card border border-kortix-border flex items-center justify-center text-kortix-green hover:bg-kortix-green hover:text-kortix-darker transition-all duration-200 z-10"
             >
               <ChevronRight size={20} />
             </button>
 
-            <div className="flex items-center justify-center gap-2 mt-8">
+            {/*
+              The visible dots are 8px tall. A pseudo-element extends each one's
+              touch area to 48px so they can be tapped on a phone without
+              changing how the row looks.
+            */}
+            <div className="relative flex items-center justify-center gap-2 mt-8">
               {testimonials.map((t, i) => (
                 <button
                   key={t.name}
                   onClick={() => goTo(i)}
                   aria-label={`Go to testimonial ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
+                  className={`relative h-2 rounded-full transition-all duration-300 before:absolute before:-inset-x-1 before:-inset-y-5 before:content-[''] ${
                     i === index
                       ? "w-8 bg-kortix-green"
                       : "w-2 bg-kortix-border hover:bg-kortix-muted"

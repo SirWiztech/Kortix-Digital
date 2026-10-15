@@ -1,7 +1,7 @@
 "use client";
 
 import * as motion from "motion/react-client";
-import type { Variants } from "motion/react";
+import { useReducedMotion, type Variants } from "motion/react";
 import { type ReactNode } from "react";
 
 interface ScrollRevealProps {
@@ -44,6 +44,14 @@ export default function ScrollReveal({
   delay = 0,
   className = "",
 }: ScrollRevealProps) {
+  const reduceMotion = useReducedMotion();
+
+  // With "reduce motion" on, content is rendered as-is: nothing fades, slides
+  // or waits on an IntersectionObserver to become readable.
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   const variants = buildVariants(direction);
 
   return (

@@ -3,8 +3,10 @@
 import { useRef, useEffect, type CSSProperties, type ReactNode } from "react";
 import { useMounted } from "@/lib/use-mounted";
 
+// Paddings are set so every size clears a 48px tap target on mobile: the small
+// size used to be 10px of padding (about 40px tall) on the most-tapped buttons.
 const SIZES = {
-  sm: "text-[0.85rem] px-[22px] py-[10px]",
+  sm: "text-[0.85rem] px-[22px] py-[14px]",
   md: "text-[1rem] px-[30px] py-[14px]",
   lg: "text-[1.15rem] px-10 py-[18px]",
 };
