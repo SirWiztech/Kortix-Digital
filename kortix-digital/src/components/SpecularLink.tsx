@@ -17,6 +17,7 @@ interface SpecularLinkProps {
   target?: string;
   rel?: string;
   onClick?: () => void;
+  "aria-label"?: string;
 }
 
 export default function SpecularLink({
@@ -32,6 +33,7 @@ export default function SpecularLink({
   target,
   rel,
   onClick,
+  "aria-label": ariaLabel,
 }: SpecularLinkProps) {
   const mounted = useMounted();
 
@@ -43,6 +45,7 @@ export default function SpecularLink({
         href={href}
         target={finalTarget}
         rel={finalRel}
+        aria-label={ariaLabel}
         onClick={onClick}
         className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold bg-kortix-green text-kortix-darker rounded-lg transition-all duration-200 ${className}`}
       >
@@ -65,6 +68,7 @@ export default function SpecularLink({
       target={target}
       rel={rel}
       onClick={onClick}
+      aria-label={ariaLabel}
     >
       {children}
     </SpecularButton>

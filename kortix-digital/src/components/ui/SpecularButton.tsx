@@ -30,6 +30,8 @@ interface SpecularButtonProps {
   rel?: string;
   disabled?: boolean;
   as?: "button" | "a";
+  /** Accessible name for icon-only or repeated labels (e.g. one card per track). */
+  "aria-label"?: string;
   /** Only used when `as="button"`. Defaults to the browser default (submit in a form). */
   type?: "button" | "submit" | "reset";
 }
@@ -56,6 +58,7 @@ export default function SpecularButton({
   disabled,
   as = "button",
   type,
+  "aria-label": ariaLabel,
 }: SpecularButtonProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shineRef = useRef<HTMLDivElement>(null);
@@ -144,6 +147,7 @@ export default function SpecularButton({
           href={href}
           target={finalTarget}
           rel={finalRel}
+          aria-label={ariaLabel}
           onClick={onClick}
           className={contentClass}
           style={contentStyle}
@@ -153,6 +157,7 @@ export default function SpecularButton({
       ) : (
         <button
           type={type}
+          aria-label={ariaLabel}
           onClick={onClick}
           disabled={disabled}
           className={contentClass}

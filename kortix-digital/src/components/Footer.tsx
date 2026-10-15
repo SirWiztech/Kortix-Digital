@@ -29,6 +29,12 @@ const footerLinks = {
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "Request a Service", href: "/request" },
+    { label: "Blog & Guides", href: "/blog" },
+  ],
+  legal: [
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-of-service" },
+    { label: "Refund Policy", href: "/refund-policy" },
   ],
 };
 
@@ -40,8 +46,9 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2 mb-2">
               <Image
-                src="/Kortix Favicon .png"
-                alt="Kortix Digital"
+                src="/kortix-favicon.png"
+                alt=""
+                aria-hidden
                 width={28}
                 height={28}
                 preload={true}
@@ -137,23 +144,39 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-kortix-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-kortix-muted">
-            &copy; {new Date().getFullYear()} Kortix Digital. All rights reserved.
-          </p>
-          <p className="text-xs text-kortix-muted">
-            We Build. We Teach. We Transform.
-          </p>
+        <div className="mt-12 pt-8 border-t border-kortix-border flex flex-col gap-6">
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:justify-start">
+            {footerLinks.legal.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-xs text-kortix-muted hover:text-kortix-green transition-colors"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-kortix-muted">
+              &copy; {new Date().getFullYear()} Kortix Digital. All rights reserved.
+            </p>
+            <p className="text-xs text-kortix-muted">
+              We Build. We Teach. We Transform.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="pointer-events-none select-none w-full flex justify-center">
-        <h2
+      {/* Oversized decorative wordmark. Not a heading: it carries no section
+          meaning and would otherwise repeat on every page's heading outline. */}
+      <div className="pointer-events-none select-none w-full flex justify-center" aria-hidden>
+        <p
           className="text-[14vw] leading-none font-black tracking-tighter whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-b from-kortix-text-secondary/20 to-kortix-darker"
           style={{ WebkitTextStroke: "0px transparent" }}
         >
           KORTIX DIGITAL
-        </h2>
+        </p>
       </div>
     </footer>
   );

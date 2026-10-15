@@ -24,10 +24,12 @@ export default function Home() {
           <ScrollReveal>
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Our Services
+                Digital Agency Services
               </h2>
               <p className="text-kortix-text-secondary text-lg max-w-2xl mx-auto">
-                Professional digital solutions tailored to your business needs.
+                Websites, mobile apps, brand design and video editing for
+                businesses in Nigeria and beyond — scoped, quoted and delivered
+                by the Kortix Digital team.
               </p>
             </div>
           </ScrollReveal>
@@ -44,7 +46,7 @@ export default function Home() {
                 href="/services"
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-kortix-green hover:text-kortix-green-light transition-colors"
               >
-                View All Services
+                Compare all {services.length} agency services
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -57,17 +59,20 @@ export default function Home() {
           <ScrollReveal>
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Master Digital Skills
+              Paid Mentorship Cohorts &amp; Tech Courses
               </h2>
               <p className="text-kortix-text-secondary text-lg max-w-2xl mx-auto">
-                Intensive mentorship cohorts designed to take you from beginner
-                to job-ready in the most in-demand digital skills.
+                Intensive, mentor-led cohorts that take you from beginner to
+                job-ready in web development, app development, data analysis,
+                cybersecurity, UI/UX design, digital marketing and more.
               </p>
             </div>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cohorts.slice(0, 6).map((cohort, i) => (
+            {/* All cohorts are listed here so every track is one click from
+                the homepage rather than hidden behind /cohorts. */}
+            {cohorts.map((cohort, i) => (
               <CohortCard key={cohort.slug} cohort={cohort} index={i} />
             ))}
           </div>
@@ -78,7 +83,7 @@ export default function Home() {
                 href="/cohorts"
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-kortix-green hover:text-kortix-green-light transition-colors"
               >
-                Explore All Cohorts
+                See all {cohorts.length} cohorts, fees and durations
                 <ArrowRight size={16} />
               </Link>
             </div>

@@ -49,9 +49,11 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 shrink-0">
+            {/* Decorative: the brand name is in the text beside it. */}
             <Image
-              src="/Kortix Favicon .png"
-              alt="Kortix Digital"
+              src="/kortix-favicon.png"
+              alt=""
+              aria-hidden
               width={32}
               height={32}
               className="transition-all duration-300"

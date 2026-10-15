@@ -69,12 +69,16 @@ export default function CohortCard({
               className="w-full"
               radius={8}
               lineColor="#25D366"
+              aria-label={`Join the ${cohort.track} cohort WhatsApp group`}
             >
               <Users size={16} />
               Join WhatsApp Group
             </SpecularButton>
           )}
 
+          {/* Visible text stays short; the accessible name spells out which
+              cohort is on the other end, so nine cards do not read as nine
+              identical "Cohort details" links. */}
           <SpecularButton
             as="a"
             href={`/cohorts/${cohort.slug}`}
@@ -83,8 +87,9 @@ export default function CohortCard({
             radius={8}
             baseColor="#0a0a0a"
             thickness={0.5}
+            aria-label={`${cohort.track} cohort details: ${cohort.duration}, curriculum and fees`}
           >
-            View Details
+            {cohort.track} cohort details
             <ArrowRight size={14} />
           </SpecularButton>
         </div>

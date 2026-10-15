@@ -24,8 +24,11 @@ export default function ServiceCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <ElectricBorder borderRadius={16} className="h-full">
+      {/* The card contains a repeated "Request Quote", so the accessible name
+          spells out which service the link actually opens. */}
       <Link
         href={`/services/${service.slug}`}
+        aria-label={`${service.title} services: what's included, pricing and how to request a quote`}
         className="group block h-full p-6 sm:p-8 rounded-2xl bg-kortix-card transition-all duration-300 hover:shadow-lg hover:shadow-kortix-green/5 hover:-translate-y-1"
       >
         <div className="w-12 h-12 rounded-xl bg-kortix-green/10 flex items-center justify-center mb-5 group-hover:bg-kortix-green/20 transition-colors">

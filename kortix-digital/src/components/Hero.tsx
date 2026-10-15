@@ -176,32 +176,20 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        <div className="mb-8 flex flex-wrap items-baseline justify-center gap-x-4">
-          <motion.h1
-            variants={fadeUp(0)}
-            initial="hidden"
-            animate="visible"
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.05] text-foreground"
-          >
-            We Build.
-          </motion.h1>
-          <motion.h1
-            variants={fadeUp(1)}
-            initial="hidden"
-            animate="visible"
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.05] text-foreground"
-          >
-            We Teach.
-          </motion.h1>
-          <motion.h1
-            variants={fadeUp(2)}
-            initial="hidden"
-            animate="visible"
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.05] bg-clip-text text-transparent bg-gradient-to-b from-kortix-green to-kortix-green/60 green-glow-text"
-          >
+        {/*
+          One H1 for the page, with the tagline split into spans so the visual
+          line breaks survive. Heading text stays exactly as the brand wrote it.
+
+          Deliberately NOT animated: this is the largest above-the-fold element,
+          so it must paint immediately (LCP) and stay readable without JS.
+        */}
+        <h1 className="mb-8 flex flex-wrap items-baseline justify-center gap-x-4 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.05] text-foreground">
+          <span>We Build.</span>{" "}
+          <span>We Teach.</span>{" "}
+          <span className="bg-clip-text text-transparent bg-gradient-to-b from-kortix-green to-kortix-green/60 green-glow-text">
             We Transform.
-          </motion.h1>
-        </div>
+          </span>
+        </h1>
 
         <motion.p
           custom={2}
@@ -212,6 +200,18 @@ export default function Hero() {
         >
           Professional digital agency services paired with intensive mentorship
           cohorts — everything you need to succeed in the digital economy.
+        </motion.p>
+
+        <motion.p
+          custom={2}
+          variants={fadeUp(2)}
+          initial="hidden"
+          animate="visible"
+          className="max-w-3xl mx-auto text-sm sm:text-base text-kortix-muted mb-10"
+        >
+          Web development, app development, graphic design and video editing for
+          businesses, plus paid mentorship cohorts in web development, data
+          analysis, cybersecurity, UI/UX design and digital marketing.
         </motion.p>
 
         <motion.div
