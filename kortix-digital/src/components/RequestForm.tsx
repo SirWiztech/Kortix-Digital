@@ -2,24 +2,22 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import { services } from "@/data/services";
+import {
+  HONEYPOT_FIELD,
+  REQUEST_CURRENCIES,
+  requestServiceSchema,
+  type RequestServiceInput,
+} from "@/lib/request-schema";
 import SpecularButton from "./ui/SpecularButton";
 
-const currencies = ["NGN", "USD", "GBP", "EUR"];
+const currencies = REQUEST_CURRENCIES;
 
-const schema = z.object({
-  service: z.string().min(1, "Please select a service"),
-  currency: z.string().min(1, "Please select a currency"),
-  budget: z.string().optional(),
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Please enter a valid email"),
-  details: z.string().min(10, "Please provide more details (min 10 characters)"),
-});
-
-type FormData = z.infer<typeof schema>;
+// Validation rules live in lib/request-schema.ts and are shared with the API
+// route, so the browser and the server can never disagree about what is valid.
+type FormData = RequestServiceInput;
 
 export default function RequestForm({
   defaultService,
@@ -27,13 +25,14 @@ export default function RequestForm({
   defaultService?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(requestServiceSchema),
     defaultValues: {
       service: defaultService || "",
       currency: "NGN",
@@ -42,13 +41,20 @@ export default function RequestForm({
 
   const onSubmit = async (data: FormData) => {
     setStatus("submitting");
+    setErrorMessage(null);
     try {
       const res = await fetch("/api/request-service", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) {
+        const payload = (await res.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        setErrorMessage(payload?.error ?? null);
+        throw new Error("Request failed");
+      }
       setStatus("success");
     } catch {
       setStatus("error");
@@ -68,7 +74,24 @@ export default function RequestForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+      {/*
+        Honeypot. Hidden from sighted users and from assistive tech, and never
+        focusable, but a script that blindly fills every input will complete it
+        — and the API silently discards any submission that arrives with it
+        filled.
+      */}
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor={HONEYPOT_FIELD}>Leave this field empty</label>
+        <input
+          id={HONEYPOT_FIELD}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          {...register(HONEYPOT_FIELD)}
+        />
+      </div>
+
       <div>
         <label htmlFor="service" className="block text-sm font-medium text-kortix-text-secondary mb-2">
           Service Type
@@ -179,7 +202,8 @@ export default function RequestForm({
         <div className="flex items-center gap-2 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
           <AlertCircle size={18} className="text-red-400 shrink-0" />
           <p className="text-sm text-red-400">
-            Something went wrong. Please try again or email us directly at kortixdigital@gmail.com
+            {errorMessage ??
+              "Something went wrong. Please try again or email us directly at kortixdigital@gmail.com"}
           </p>
         </div>
       )}

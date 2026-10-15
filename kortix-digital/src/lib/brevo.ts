@@ -1,5 +1,19 @@
 const BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
 
+/**
+ * Escapes anything a visitor typed before it is interpolated into the email
+ * HTML. Without this, a submission containing markup (or a `</div><script>`)
+ * was written straight into the message body.
+ */
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 interface RequestServiceData {
   service: string;
   currency: string;
@@ -21,6 +35,18 @@ export async function sendRequestEmail(data: RequestServiceData) {
     ? `${data.currency} ${Number(data.budget).toLocaleString()}`
     : "Not specified";
 
+  // Every visitor-supplied value goes through escapeHtml before it reaches the
+  // template below.
+  const safe = {
+    service: escapeHtml(data.service),
+    name: escapeHtml(data.name),
+    email: escapeHtml(data.email),
+    budget: escapeHtml(budgetDisplay),
+    // Newlines become <br> after escaping, so the layout survives but no tag
+    // from the submission can be interpreted.
+    details: escapeHtml(data.details).replace(/\n/g, "<br>"),
+  };
+
   const htmlContent = [
     "<!DOCTYPE html>",
     '<html><head><style>',
@@ -38,12 +64,12 @@ export async function sendRequestEmail(data: RequestServiceData) {
     '<div class="container">',
     '<div class="header"><h1>New Service Request</h1></div>',
     '<div class="body">',
-    '<div class="field"><div class="label">Service</div><div class="value">' + data.service + '</div></div>',
-    '<div class="field"><div class="label">Proposed Budget</div><div class="value">' + budgetDisplay + '</div></div>',
-    '<div class="field"><div class="label">Client Name</div><div class="value">' + data.name + '</div></div>',
-    '<div class="field"><div class="label">Client Email</div><div class="value">' + data.email + '</div></div>',
+    '<div class="field"><div class="label">Service</div><div class="value">' + safe.service + '</div></div>',
+    '<div class="field"><div class="label">Proposed Budget</div><div class="value">' + safe.budget + '</div></div>',
+    '<div class="field"><div class="label">Client Name</div><div class="value">' + safe.name + '</div></div>',
+    '<div class="field"><div class="label">Client Email</div><div class="value">' + safe.email + '</div></div>',
     '<hr class="divider">',
-    '<div class="field"><div class="label">Project Details</div><div class="value">' + data.details.replace(/\n/g, "<br>") + '</div></div>',
+    '<div class="field"><div class="label">Project Details</div><div class="value">' + safe.details + '</div></div>',
     "</div>",
     '<div class="footer">Kortix Digital — Service Request System</div>',
     "</div></body></html>",
@@ -53,7 +79,9 @@ export async function sendRequestEmail(data: RequestServiceData) {
     sender: { email: "noreply@kortixdigital.com", name: "Kortix Digital" },
     to: [{ email: recipient }],
     replyTo: { email: data.email, name: data.name },
-    subject: `New Service Request — ${data.service}`,
+    // Plain text subject: strip newlines so a crafted value cannot inject
+    // extra header lines.
+    subject: `New Service Request — ${data.service.replace(/[\r\n]+/g, " ")}`,
     htmlContent,
   };
 

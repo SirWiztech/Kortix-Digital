@@ -5,6 +5,52 @@ import { ALT_HOST, SITE_HOST, SITE_URL } from "./src/lib/site";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ * Content Security Policy.
+ *
+ * `script-src` has to allow `'unsafe-inline'`: Next.js ships inline bootstrap
+ * and RSC payload scripts, and a nonce-based policy would force every route to
+ * render dynamically (no static HTML, worse Core Web Vitals for no real gain on
+ * a marketing site). Everything else is locked down: no `object-src`, no
+ * framing, `form-action` limited to this origin, and the only third parties
+ * allowed are the analytics hosts we actually load.
+ *
+ * TODO(owner): if you ever add a payment provider, chat widget or other
+ * third-party script, add its host here deliberately — the policy is meant to
+ * fail closed when an unknown script appears.
+ */
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
+  // Tailwind and the inline styles used by motion/next/image all need this.
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com",
+  "font-src 'self' data:",
+  "media-src 'self'",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com",
+  "frame-src 'self' https://www.googletagmanager.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+/** Applied to every response. */
+const securityHeaders = [
+  // Two years, subdomains included. Only enable preload once you are sure
+  // every subdomain is HTTPS-only.
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  },
+  { key: "Content-Security-Policy", value: csp },
+];
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: dirname,
@@ -27,6 +73,11 @@ const nextConfig: NextConfig = {
     const publicAsset = ["jpg", "jpeg", "png", "svg", "webp", "avif", "ico", "mp4", "woff2"];
 
     return [
+      {
+        // Security headers on every route, including API responses.
+        source: "/:path*",
+        headers: securityHeaders,
+      },
       {
         // Hashed build output — safe to cache forever.
         source: "/_next/static/:path*",
