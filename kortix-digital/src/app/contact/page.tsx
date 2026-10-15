@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import SpecularLink from "@/components/SpecularLink";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { WhatsAppIcon, DiscordIcon } from "@/components/BrandIcons";
@@ -45,6 +46,14 @@ export default function ContactPage() {
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-24">
         <div className="absolute inset-0 bg-gradient-to-b from-kortix-green/5 to-transparent" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex justify-center">
+            <Breadcrumbs
+              items={[
+                { name: "Home", path: "/" },
+                { name: "Contact", path: "/contact" },
+              ]}
+            />
+          </div>
           <ScrollReveal>
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
               Get in Touch

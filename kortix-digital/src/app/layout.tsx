@@ -5,6 +5,8 @@ import FloatingCTA from "@/components/FloatingCTA";
 import FloatingChatbot from "@/components/FloatingChatbot";
 import ThemeProvider from "@/components/ThemeProvider";
 import CookieConsent from "@/components/CookieConsent";
+import JsonLd from "@/components/JsonLd";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -66,28 +68,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Kortix Digital",
-    url: SITE_URL,
-    logo: `${SITE_URL}/apple-touch-icon.png`,
-    description:
-      "Digital agency services and mentorship cohorts for the next generation. Web development, design, video editing, app development, and 9 skill tracks.",
-    foundingDate: "2025",
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer service",
-      email: "kortixdigital@gmail.com",
-      telephone: "+234-707-161-7216",
-    },
-    sameAs: [
-      "https://wa.me/2347071617216",
-      "https://discordapp.com/users/1466951307708469516",
-      "mailto:kortixdigital@gmail.com",
-    ],
-  };
-
   return (
     <html
       lang="en"
@@ -95,10 +75,8 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        {/* Organization + WebSite describe the brand on every page. */}
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>

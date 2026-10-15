@@ -1,12 +1,10 @@
-"use client";
-
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import FaqAccordion from "./FaqAccordion";
+import { type FaqItem } from "@/lib/schema";
 
-// TODO: confirm real FAQ copy
-const faqs = [
+// TODO(owner): confirm this copy, then reuse it for the FAQPage markup below.
+// Every answer here is rendered into the HTML (no click required to exist).
+export const homeFaqs: FaqItem[] = [
   {
     question: "How do the mentorship cohorts work?",
     answer:
@@ -35,7 +33,7 @@ const faqs = [
   {
     question: "Is there a refund policy?",
     answer:
-      "We want you to be confident in your investment. If you're not satisfied within a short window after starting, contact us and we'll work out a fair resolution or refund per our policy.",
+      "Yes. If something goes wrong with a cohort enrollment or a project, contact us on WhatsApp or by email with your payment details and what happened. We review each request against our written refund policy: delivered and approved work is payable, and undisputed or undelivered work is refundable.",
   },
   {
     question: "What support is available after I enroll or hire Kortix?",
@@ -45,8 +43,6 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-kortix-green/3 to-transparent" />
@@ -66,63 +62,8 @@ export default function FAQ() {
           </div>
         </ScrollReveal>
 
-        <div className="space-y-3">
-          {faqs.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <ScrollReveal key={faq.question} delay={i * 0.05}>
-                <div
-                  className={`rounded-2xl border bg-kortix-card transition-all duration-300 ${
-                    isOpen
-                      ? "border-l-kortix-green border-kortix-green/30 border-l-2 shadow-lg shadow-kortix-green/5"
-                      : "border-kortix-border hover:border-kortix-green/20"
-                  }`}
-                >
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 sm:px-6 sm:py-5"
-                  >
-                    <span className="font-semibold text-foreground text-sm sm:text-base">
-                      {faq.question}
-                    </span>
-                    <span
-                      className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${
-                        isOpen
-                          ? "bg-kortix-green text-kortix-darker border-kortix-green"
-                          : "bg-transparent text-kortix-green border-kortix-border"
-                      }`}
-                    >
-                      <ChevronDown
-                        size={18}
-                        className={`transition-transform duration-300 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </span>
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="px-5 pb-5 sm:px-6 sm:pb-6 text-kortix-text-secondary text-sm sm:text-base leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
+        {/* FAQPage markup lives here, next to the answers it describes. */}
+        <FaqAccordion items={homeFaqs} />
       </div>
     </section>
   );

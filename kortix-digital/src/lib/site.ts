@@ -31,8 +31,10 @@ export const SITE_NAME = "Kortix Digital";
 export const SITE_TAGLINE = "We Build. We Teach. We Transform.";
 
 export const CONTACT_EMAIL = "kortixdigital@gmail.com";
+/** WhatsApp number in E.164 format (used by schema.org contact points). */
+export const WHATSAPP_NUMBER_E164 = "+2347071617216";
 export const WHATSAPP_DISPLAY = "+234 707 161 7216";
-export const WHATSAPP_URL = "https://wa.me/2347071617216";
+export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER_E164.replace(/\D/g, "")}`;
 export const DISCORD_URL = "https://discordapp.com/users/1466951307708469516";
 
 /**

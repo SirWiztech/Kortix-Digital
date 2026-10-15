@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import RequestForm from "@/components/RequestForm";
 import ScrollReveal from "@/components/ScrollReveal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -30,6 +31,14 @@ export default async function RequestPage({
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-24">
         <div className="absolute inset-0 bg-gradient-to-b from-kortix-green/5 to-transparent" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex justify-center">
+            <Breadcrumbs
+              items={[
+                { name: "Home", path: "/" },
+                { name: "Request a Service", path: "/request" },
+              ]}
+            />
+          </div>
           <ScrollReveal>
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
               Request a Service
