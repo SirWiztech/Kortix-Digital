@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
-import { MessageCircle, Sparkles, X, Send } from "lucide-react";
+import { MessageCircle, Sparkles, X, Send, Phone } from "lucide-react";
 import { WhatsAppIcon } from "./BrandIcons";
-import { respondToMessage, WHATSAPP_LINK } from "@/lib/chatbot-engine";
 import { trackEvent } from "@/lib/analytics";
+import { PHONE_TEL_URL, respondToMessage, WHATSAPP_LINK } from "@/lib/chatbot-engine";
 
 interface ChatMessage {
   id: number;
@@ -24,6 +24,7 @@ const QUICK_REPLIES = [
   { label: "Explore Services", href: "/services", prompt: "What services do you offer?" },
   { label: "Join a Cohort", href: "/cohorts", prompt: "What cohorts do you have?" },
   { label: "Check Prices", href: null as string | null, prompt: "What are your prices?" },
+  { label: "Call us", href: null as string | null, prompt: "What is your phone number?" },
   { label: "How do cohorts work?", href: null as string | null, prompt: "How do cohorts work?" },
 ];
 
@@ -149,6 +150,17 @@ export default function FloatingChatbot() {
                 >
                   <WhatsAppIcon size={12} />
                   Talk to a human
+                </a>
+                <a
+                  href={PHONE_TEL_URL}
+                  onClick={() => {
+                    trackEvent("click_phone", { location: "chatbot" });
+                    sendMessage("I'd like a call");
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-kortix-phone/15 text-kortix-phone border border-kortix-phone/30 hover:bg-kortix-phone hover:text-white transition-all duration-200"
+                >
+                  <Phone size={12} />
+                  Call us
                 </a>
               </div>
             </div>

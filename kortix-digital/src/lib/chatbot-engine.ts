@@ -15,8 +15,12 @@
 // respondToMessage with a fetch() to your API.
 // ============================================================
 
+import { PHONE_TEL_URL } from "@/lib/site";
+
 export const WHATSAPP_LINK = "https://wa.me/2347071617216";
 export const EMAIL = "kortixdigital@gmail.com";
+/** Re-exported so the chatbot keeps a single import for its contact links. */
+export { PHONE_TEL_URL };
 
 // ---- TRACKS (services + cohorts share the same names) ----
 // Each track maps to both an agency service and a mentorship
@@ -349,13 +353,13 @@ const KNOWLEDGE: KnowledgeEntry[] = [
     id: "contact_human",
     keywords: ["talk to a human", "human", "agent", "customer service", "real person", "representative", "support team", "reach you", "contact"],
     response:
-      `No problem! You can reach our team directly:\n\n💬 WhatsApp: wa.me/2347071617216\n✉️ Email: ${EMAIL}\n🎮 Discord: Kortix community\n\nWe usually reply quickly!`,
+      `No problem! You can reach our team directly:\n\n📞 Call: 07071617216\n💬 WhatsApp: wa.me/2347071617216\n✉️ Email: ${EMAIL}\n🎮 Discord: Kortix community\n\nWe usually reply quickly!`,
   },
   {
     id: "email_phone",
     keywords: ["email", "phone number", "call", "telephone", "contact number", "mail"],
     response:
-      `You can reach us at:\n✉️ ${EMAIL}\n💬 WhatsApp: +234 707 161 7216\n\nPrefer to chat? Use the WhatsApp button and we'll reply fast.`,
+      `You can reach us at:\n📞 Call: 07071617216\n✉️ ${EMAIL}\n💬 WhatsApp: +234 707 161 7216\n\nPrefer to chat? Use the WhatsApp button and we'll reply fast.`,
   },
   {
     id: "discord",

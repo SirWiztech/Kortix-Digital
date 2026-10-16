@@ -3,17 +3,24 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SpecularLink from "@/components/SpecularLink";
 import TrackedLink from "@/components/TrackedLink";
 import type { AnalyticsEvent } from "@/lib/analytics";
-import { CONTACT_EMAIL, DISCORD_URL, WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import {
+  CONTACT_EMAIL,
+  DISCORD_URL,
+  PHONE_DISPLAY,
+  PHONE_TEL_URL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_URL,
+} from "@/lib/site";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import { WhatsAppIcon, DiscordIcon } from "@/components/BrandIcons";
 import type { ComponentType } from "react";
-import { Mail, ArrowRight } from "lucide-react";
+import { Mail, Phone, ArrowRight } from "lucide-react";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata({
-  title: "Contact Kortix Digital — Email, WhatsApp & Discord",
+  title: "Contact Us — Call 07071617216",
   description:
-    "Talk to Kortix Digital about a project or a cohort. Reach us on WhatsApp, by email at kortixdigital@gmail.com, or in our Discord community.",
+    "Talk to Kortix Digital about a project or a cohort. Call 07071617216, message us on WhatsApp, email kortixdigital@gmail.com, or join our Discord community.",
   path: "/contact",
 });
 
@@ -27,6 +34,15 @@ const contactMethods: {
   bgColor: string;
   event: AnalyticsEvent;
 }[] = [
+  {
+    icon: Phone,
+    label: "Phone",
+    value: PHONE_DISPLAY,
+    href: PHONE_TEL_URL,
+    color: "text-kortix-phone",
+    bgColor: "bg-kortix-phone/10",
+    event: "click_phone",
+  },
   {
     icon: Mail,
     label: "Email",
@@ -84,7 +100,7 @@ export default function ContactPage() {
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {contactMethods.map((method, i) => {
               const Icon = method.icon;
               return (

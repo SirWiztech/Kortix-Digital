@@ -12,6 +12,8 @@ import {
   Users,
   Target,
   Zap,
+  Code2,
+  Monitor,
 } from "lucide-react";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -49,6 +51,21 @@ const services = [
   { icon: Video, name: "Video Editing" },
   { icon: PenTool, name: "UI/UX Design" },
   { icon: Smartphone, name: "App Development" },
+];
+
+const team = [
+  {
+    name: "Ogaraku Ugochukwu",
+    role: "Founder & Backend Engineer",
+    bio: "Founder of Kortix Digital. Backend engineer who builds the APIs, systems and infrastructure behind our client projects and training cohorts.",
+    icon: Code2,
+  },
+  {
+    name: "Okanta Onubuikem",
+    role: "Co-founder & Frontend Engineer",
+    bio: "Co-founder and frontend engineer at Kortix Digital. Builds the user-facing interfaces and turns complex product ideas into clean, usable experiences.",
+    icon: Monitor,
+  },
 ];
 
 export default function AboutPage() {
@@ -179,6 +196,41 @@ export default function AboutPage() {
                       {service.name}
                     </p>
                   </div>
+                  </ElectricBorder>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-12">
+              Meet the Founders
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {team.map((member, i) => {
+              const Icon = member.icon;
+              return (
+                <ScrollReveal key={member.name} delay={i * 0.1}>
+                  <ElectricBorder borderRadius={16}>
+                    <div className="p-8 rounded-2xl bg-kortix-card">
+                      <div className="w-14 h-14 rounded-full bg-kortix-green/10 flex items-center justify-center mx-auto mb-5">
+                        <Icon size={26} className="text-kortix-green" />
+                      </div>
+                      <h3 className="text-lg font-bold text-foreground text-center mb-2">
+                        {member.name}
+                      </h3>
+                      <p className="text-sm font-medium text-kortix-green text-center mb-3">
+                        {member.role}
+                      </p>
+                      <p className="text-sm text-kortix-text-secondary leading-relaxed text-center">
+                        {member.bio}
+                      </p>
+                    </div>
                   </ElectricBorder>
                 </ScrollReveal>
               );

@@ -5,6 +5,7 @@ import {
   absoluteUrl,
   CONTACT_EMAIL,
   DISCORD_URL,
+  PHONE_NUMBER_E164,
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
@@ -54,13 +55,33 @@ export function organizationSchema(): SchemaNode {
     },
     image: absoluteUrl("/logo.svg"),
     email: CONTACT_EMAIL,
+    telephone: PHONE_NUMBER_E164,
     areaServed: { "@type": "Country", name: "Nigeria" },
+    founder: [
+      {
+        "@type": "Person",
+        name: "Ogaraku Ugochukwu",
+        jobTitle: "Founder & Backend Engineer",
+      },
+      {
+        "@type": "Person",
+        name: "Okanta Onubuikem",
+        jobTitle: "Co-founder & Frontend Engineer",
+      },
+    ],
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "customer support",
         telephone: WHATSAPP_NUMBER_E164,
         email: CONTACT_EMAIL,
+        areaServed: "NG",
+        availableLanguage: ["en"],
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "telephone",
+        telephone: PHONE_NUMBER_E164,
         areaServed: "NG",
         availableLanguage: ["en"],
       },

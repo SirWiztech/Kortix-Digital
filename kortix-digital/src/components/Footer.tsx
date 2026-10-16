@@ -4,9 +4,16 @@ import TrackedLink from "./TrackedLink";
 import {
   Mail,
   MessageCircle,
+  Phone,
   ExternalLink,
 } from "lucide-react";
-import { WHATSAPP_URL, DISCORD_URL, CONTACT_EMAIL } from "@/lib/site";
+import {
+  PHONE_DISPLAY,
+  PHONE_TEL_URL,
+  WHATSAPP_URL,
+  DISCORD_URL,
+  CONTACT_EMAIL,
+} from "@/lib/site";
 
 const footerLinks = {
   services: [
@@ -84,6 +91,15 @@ export default function Footer() {
               >
                 <ExternalLink size={16} />
                 Discord
+              </TrackedLink>
+              <TrackedLink
+                href={PHONE_TEL_URL}
+                event="click_phone"
+                params={{ location: "footer" }}
+                className="flex items-center gap-2 py-1 text-sm text-kortix-text-secondary hover:text-kortix-phone transition-colors"
+              >
+                <Phone size={16} />
+                {PHONE_DISPLAY}
               </TrackedLink>
               <TrackedLink
                 href={`mailto:${CONTACT_EMAIL}`}

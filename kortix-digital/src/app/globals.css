@@ -22,6 +22,7 @@
   --kortix-text-secondary: #a0a0a0;
   --kortix-discord: #5865F2;
   --kortix-whatsapp: #25D366;
+  --kortix-phone: #38BDF8;
 }
 
 [data-theme="light"] {
@@ -51,6 +52,7 @@
   --color-kortix-text-secondary: var(--kortix-text-secondary);
   --color-kortix-discord: var(--kortix-discord);
   --color-kortix-whatsapp: var(--kortix-whatsapp);
+  --color-kortix-phone: var(--kortix-phone);
   --font-sans: var(--font-alro), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-alro), ui-monospace, monospace;
 }

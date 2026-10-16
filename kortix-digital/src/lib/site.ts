@@ -35,6 +35,10 @@ export const CONTACT_EMAIL = "kortixdigital@gmail.com";
 export const WHATSAPP_NUMBER_E164 = "+2347071617216";
 export const WHATSAPP_DISPLAY = "+234 707 161 7216";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER_E164.replace(/\D/g, "")}`;
+export const PHONE_NUMBER_E164 = "+2347071617216";
+export const PHONE_DISPLAY = "07071617216";
+/** Click-to-call href. Keeps the leading `+` so phones dial internationally. */
+export const PHONE_TEL_URL = `tel:${PHONE_NUMBER_E164}`;
 export const DISCORD_URL = "https://discordapp.com/users/1466951307708469516";
 
 /**

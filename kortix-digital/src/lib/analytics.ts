@@ -31,6 +31,8 @@ export type AnalyticsEvent =
   | "click_email"
   /** Someone opened a Discord profile link. */
   | "click_discord"
+  /** Someone tapped the phone number to call us. */
+  | "click_phone"
   /** The in-page chatbot was opened. */
   | "open_chatbot";
 
